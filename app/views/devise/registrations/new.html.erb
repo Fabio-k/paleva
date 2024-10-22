@@ -1,0 +1,46 @@
+<div class="flex flex-col w-80">
+  <h2 class="text-3xl mb-10">Criar Dono de restaurante</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :cpf %><br />
+      <%= f.text_field :cpf, autofocus: true, autocomplete: "cpf", class: 'input-primary'%>
+    </div>
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-primary'%>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: 'input-primary' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input-primary' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: 'input-primary' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'input-primary' %>
+    </div>
+
+    <div class="actions mb-5 mt-5">
+      <%= f.submit "Criar Conta", class: 'font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-green-600 cursor-pointer'%>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+</div>
