@@ -4,12 +4,12 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field mb-4">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'w-full border-none bg-neutral-200 rounded-xl py-3 px-4'%>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input-primary'%>
   </div>
 
   <div class="field mb-4">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password", class: "w-full border-none bg-neutral-200 rounded-xl py-3 px-4"%>
+    <%= f.password_field :password, autocomplete: "current-password", class: 'input-primary'%>
   </div>
 
   <% if devise_mapping.rememberable? %>
@@ -20,7 +20,7 @@
   <% end %>
 
   <div class="actions mb-5">
-    <%= f.submit "Entrar", class: 'font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-green-600 cursor-pointer'%>
+    <%= f.submit "Entrar", class:'btn-submit'%>
   </div>
 <% end %>
 

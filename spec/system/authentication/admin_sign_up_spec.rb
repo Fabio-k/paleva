@@ -13,7 +13,7 @@ describe 'user sign up' do
     click_on 'Criar Conta'
 
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
-    expect(current_path).to eq root_path
+    expect(current_path).to eq new_restaurant_path
   end
 
   it 'with fail' do

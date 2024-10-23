@@ -11,17 +11,17 @@
 
     <div class="field">
       <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-primary'%>
+      <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
     </div>
 
     <div class="field">
       <%= f.label :last_name %><br />
-      <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: 'input-primary' %>
+      <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
     </div>
 
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input-primary' %>
+      <%= f.email_field :email, autocomplete: "email", class: 'input-primary' %>
     </div>
 
     <div class="field">
@@ -38,7 +38,7 @@
     </div>
 
     <div class="actions mb-5 mt-5">
-      <%= f.submit "Criar Conta", class: 'font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-green-600 cursor-pointer'%>
+      <%= f.submit "Criar Conta", class: 'btn-submit'%>
     </div>
   <% end %>
 

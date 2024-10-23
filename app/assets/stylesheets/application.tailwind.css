@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-orange-500 rounded-xl text-center;
+  .btn-submit {
+    @apply font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-green-600 cursor-pointer;
   }
   .input-primary {
     @apply w-full border-none bg-neutral-200 rounded-xl py-3 px-4;
