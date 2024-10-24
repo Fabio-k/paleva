@@ -5,7 +5,10 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :cpf, :name, :last_name, presence: true
+  validates :cpf, uniqueness: true
   validate :valid_cpf
+
+ 
 
   private
 
