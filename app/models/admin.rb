@@ -8,7 +8,7 @@ class Admin < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :valid_cpf
 
- 
+  has_one :restaurant
 
   private
 

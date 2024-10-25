@@ -19,17 +19,21 @@
   </head>
 
   <body>
-    <%if admin_signed_in? %>
+   
       <header class="flex p-10 justify-between">
         <h1 class="text-3xl font-bold" >PaLevá</h1>
         <div class="flex gap-3">
-          <p><%=current_admin.name%></p>
-          <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
+           <%if admin_signed_in? %>
+            <p><%=current_admin.name%></p>
+            <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
+          <% else %>
+            <%= link_to 'Entrar', new_admin_session_path%>
+           <% end %>
         </div>
         
       </header>
-    <% end %>
-    <main class="container mx-auto mt-28 px-6">
+   
+    <main class="container mx-auto mt-10 px-6">
       <div>
         <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>

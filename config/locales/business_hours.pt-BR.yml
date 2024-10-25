@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    model:
+      business_hour: Horário de funcionamento
+    attributes:
+      business_hour:
+        day_of_week: Dia da semana
+        opening_hour: Abre as
+        closing_hour: Fecha as

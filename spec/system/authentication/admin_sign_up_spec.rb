@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'user sign up' do
   it 'with success' do
     visit root_path 
+    click_on 'Entrar'
     click_on 'Criar Conta'
     fill_in 'CPF', with: CPF.generate
     fill_in 'Nome', with: 'William'
@@ -18,6 +19,7 @@ describe 'user sign up' do
 
   it 'with fail' do
     visit root_path 
+    click_on 'Entrar'
     click_on 'Criar Conta'
     fill_in 'Nome', with: ''
     fill_in 'Sobrenome', with: ''

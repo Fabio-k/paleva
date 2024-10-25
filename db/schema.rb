@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_020153) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_192737) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -25,4 +25,35 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_020153) do
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
+
+  create_table "business_hours", force: :cascade do |t|
+    t.integer "day_of_week"
+    t.time "opening_hour"
+    t.time "closing_hour"
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_business_hours_on_restaurant_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "code"
+    t.string "brand_name"
+    t.string "corporate_name"
+    t.string "registration_number"
+    t.string "street"
+    t.string "address_number"
+    t.string "city"
+    t.string "state"
+    t.string "cep"
+    t.string "phone_number"
+    t.string "email"
+    t.integer "admin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_restaurants_on_admin_id"
+  end
+
+  add_foreign_key "business_hours", "restaurants"
+  add_foreign_key "restaurants", "admins"
 end

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
-  before_action :authenticate_admin!
   def index
-    
+    if admin_signed_in?
+      redirect_to dashboard_path
+    end
   end
 end

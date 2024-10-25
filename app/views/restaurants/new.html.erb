@@ -1,0 +1,43 @@
+<h1 class="text-3xl font-medium mb-10">Cadastrar Restaurante</h1>
+
+<%= form_with model: @restaurant do |f| %>
+    <div class="field">
+        <%= f.label :brand_name%>
+        <%= f.text_field :brand_name, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :corporate_name%>
+        <%= f.text_field :corporate_name, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :registration_number%>
+        <%= f.text_field :registration_number, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :street%>
+        <%= f.text_field :street, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :address_number%>
+        <%= f.text_field :address_number, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :city%>
+        <%= f.text_field :city, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :state%>
+        <%= f.text_field :state, class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :phone_number%>
+        <%= f.text_field :phone_number , class: 'input-primary'%>
+    </div>
+    <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'input-primary'%>
+    </div>
+
+    <%=f.submit 'Cadastrar', class: 'btn-submit'%>
+    
+<% end %>

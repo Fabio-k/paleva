@@ -1,0 +1,25 @@
+<h1>Definir Horários</h1>
+<%BusinessHour.day_of_weeks.keys.each do |dw| %>
+    <h2><%= t(dw)%></h2>
+    <% @current_schedule.each do |day|%>
+        <%if day.day_of_week == dw%>
+            <div class="flex">
+                <p><%= day.opening_hour.strftime('%H:%M')%> - <%= day.closing_hour.strftime('%H:%M')%></p>
+            </div>
+        <% end %>
+    <% end %>
+  
+<% end %>
+
+<%= form_with model: @business_hour do |f|%>
+    <div>
+        <%= f.label :day_of_week%>
+        <%= f.select :day_of_week, options_for_select(BusinessHour.day_of_weeks.keys.map { |day| [t(day), day] }) %>
+        <%= f.label :opening_hour %>
+        <%= f.time_field :opening_hour%> - 
+        <%= f.label :closing_hour %>
+        <%= f.time_field :closing_hour%>
+        <%= f.submit 'Adicionar'%>
+    </div>
+<% end %>
+
