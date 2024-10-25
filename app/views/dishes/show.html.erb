@@ -1,0 +1,8 @@
+<% if @dish.photo.present?%>
+    <%= image_tag @dish.photo%>
+<%end%>
+<h1><%= @dish.name %></h1>
+<%= link_to 'Editar', edit_dish_path(@dish.id)%>
+<%= link_to 'Deletar', dish_path(@dish.id), method: :delete%>
+<p><%= @dish.description %></p>
+<p>calorias</p>

@@ -1,2 +1,15 @@
 <h1 class="text-5xl"><%= @restaurant.brand_name %></h1>
 <p>código: <%= @restaurant.code %></p>
+<%= link_to 'Novo Prato', new_dish_path%>
+<h2>Pratos</h2>
+
+<% @dishes.each do |dish|%>
+    <div>
+        <% if dish.photo.present? %>
+            <%= image_tag dish.photo%>
+        <% end %>
+        <h3><%= dish.name %></h3>
+        <p><%= dish.description %></p>
+        <%= link_to 'Ver detalhes', dish_path(dish.id)%>
+    </div>
+<% end %>
