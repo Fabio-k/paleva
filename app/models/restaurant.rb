@@ -6,6 +6,7 @@ class Restaurant < ApplicationRecord
   validates :brand_name, :corporate_name, :registration_number, :street, :address_number, :city, :state, :phone_number, :email, presence: true
   validates :phone_number, length: {in: 10..11}
   validates :email, format: {with: /\A[^@\s]+@[^@\s]+\z/}
+  validates :admin, uniqueness: true 
   validate :valid_registration_number
 
   before_validation :generate_code, on: :create

@@ -80,6 +80,25 @@ RSpec.describe Restaurant, type: :model do
         
       expect(restaurant.valid?).to eq false
     end
+
+    context 'uniqueness' do
+      it 'false when code is not uniq' do
+        admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
+        other_admin = Admin.create!(cpf: CPF.generate, name: 'Mario', last_name: 'Fonseca', email: 'mario@email.com', password: 'senha123senha')
+        restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
+        other_restaurant = Restaurant.create!(brand_name: 'Subway', corporate_name: 'Subway LTDA', registration_number: CNPJ.generate, street: 'Avenida Flávio Melo', address_number: '242', city: 'São Paulo', state: 'São Paulo', phone_number: '1145903221', email: 'subway@email.com', admin: other_admin)
+  
+        expect(restaurant.code).not_to eq other_restaurant.code
+      end
+  
+      it 'false when admin is not uniq' do
+        admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
+        Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
+        other_restaurant = Restaurant.new(brand_name: 'Subway', corporate_name: 'Subway LTDA', registration_number: CNPJ.generate, street: 'Avenida Flávio Melo', address_number: '242', city: 'São Paulo', state: 'São Paulo', phone_number: '1145903221', email: 'subway@email.com', admin: admin)
+        
+        expect(other_restaurant.valid?).to eq false
+      end
+    end
   end
 
   it 'generates a random code' do
@@ -88,12 +107,5 @@ RSpec.describe Restaurant, type: :model do
 
     expect(restaurant.code.length).to eq 6
   end
-
-  it 'code is unique' do
-    admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
-    restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
-    other_restaurant = Restaurant.create!(brand_name: 'Subway', corporate_name: 'Subway LTDA', registration_number: CNPJ.generate, street: 'Avenida Flávio Melo', address_number: '242', city: 'São Paulo', state: 'São Paulo', phone_number: '1145903221', email: 'subway@email.com', admin: admin)
-
-    expect(restaurant.code).not_to eq other_restaurant.code
-  end
+  
 end
