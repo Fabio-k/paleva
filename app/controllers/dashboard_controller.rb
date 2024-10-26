@@ -3,5 +3,6 @@ class DashboardController < ApplicationController
   def index
     @restaurant = current_admin.restaurant
     @dishes = @restaurant.dishes
+    @beverages = @restaurant.beverages
   end
 end

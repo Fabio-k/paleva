@@ -22,7 +22,7 @@ describe 'admin register a dish' do
 
     login_as admin
     visit root_path
-    click_on 'Novo Prato'
+    click_on 'Adicionar Prato'
     fill_in 'Nome', with: 'Lasanha'
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'
@@ -40,7 +40,7 @@ describe 'admin register a dish' do
 
     login_as admin
     visit root_path
-    click_on 'Novo Prato'
+    click_on 'Adicionar Prato'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'

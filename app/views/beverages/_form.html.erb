@@ -1,0 +1,34 @@
+<%= form_with model: beverage do |f| %>
+    <% if beverage.errors.any?%>
+        <p>Confira os erros abaixo:</p>
+        <ul>
+            <%beverage.errors.full_messages.each do |msg|%>
+                <li>
+                    <p><%= msg%></p>
+                </li>
+            <% end %>
+        </ul>
+        
+    <% end %>
+    <div>
+        <%= f.label :photo%>
+        <%= f.file_field :photo%>
+    </div>
+    <div>
+        <%= f.label :name%>
+        <%= f.text_field :name%>
+    </div>
+    <div>
+        <%= f.label :description%>
+        <%= f.text_field :description%>
+    </div>
+    <div>
+        <%= f.label :is_alcoholic%>
+        <%= f.check_box :is_alcoholic%>
+    </div>
+    <div>
+        <%= f.label :calories%> <span>(opcional)</span>
+        <%= f.text_field :calories%>
+    </div>
+    <%= f.submit btn_message%>
+<% end %>

@@ -1,15 +1,54 @@
 <h1 class="text-5xl"><%= @restaurant.brand_name %></h1>
 <p>código: <%= @restaurant.code %></p>
-<%= link_to 'Novo Prato', new_dish_path%>
-<h2>Pratos</h2>
 
-<% @dishes.each do |dish|%>
-    <div>
-        <% if dish.photo.present? %>
-            <%= image_tag dish.photo%>
-        <% end %>
-        <h3><%= dish.name %></h3>
-        <p><%= dish.description %></p>
-        <%= link_to 'Ver detalhes', dish_path(dish.id)%>
-    </div>
-<% end %>
+<section>
+    <h2 class="text-2xl">Pratos</h2>
+
+    <% @dishes.each do |dish|%>
+        <div>
+            <% if dish.photo.present? %>
+                <%= image_tag dish.photo%>
+            <% end %>
+            <h3><%= dish.name %></h3>
+            <p><%= dish.description %></p>
+            <%= link_to 'Ver detalhes', dish_path(dish.id)%>
+        </div>
+    <% end %>
+    <%= link_to 'Adicionar Prato', new_dish_path%>
+</section>
+
+<section class="mb-40">
+    <h2 class="text-2xl">Bebidas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @beverages.each do |beverage|%>
+                <tr>
+                    <td class="p-5">
+                        <%= link_to beverage_path(beverage.id) do%>
+                            <div class="flex">
+                                <% if beverage.photo.present? %>
+                                    <%= image_tag beverage.photo,width: 60, height: 60,  class: ''%>
+                                <% end %>
+                                <div>
+                                    <h3 class="font-medium"><%= beverage.name %></h3>
+                                    <p class="text-sm"><%= beverage.description %></p>
+                                </div>
+                            </div>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to 'Editar', edit_beverage_path(beverage.id)%>
+                        <%= link_to 'Deletar', beverage_path(beverage.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{beverage.name}?"}%>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <%= link_to 'Adicionar Bebida', new_beverage_path%>
+    
+</section>
