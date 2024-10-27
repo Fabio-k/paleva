@@ -1,20 +1,36 @@
-<h1 class="text-5xl"><%= @restaurant.brand_name %></h1>
-<p>código: <%= @restaurant.code %></p>
-
-<section>
+<section class="mb-20">
     <h2 class="text-2xl">Pratos</h2>
-
-    <% @dishes.each do |dish|%>
-        <div>
-            <% if dish.photo.present? %>
-                <%= image_tag dish.photo%>
+    <table>
+        <thead>
+            <tr>
+                <th>items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @dishes.each do |dish|%>
+                <tr>
+                    <td class="p-5">
+                        <%= link_to dish_path(dish.id) do%>
+                            <div class="flex gap-5">
+                                <% if dish.photo.present? %>
+                                    <%= image_tag dish.photo,width: 60, height: 60,  class: ''%>
+                                <% end %>
+                                <div>
+                                    <h3 class="font-medium"><%= dish.name %></h3>
+                                    <p class="text-sm"><%= dish.description %></p>
+                                </div>
+                            </div>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to 'Editar', edit_dish_path(dish.id)%>
+                        <%= link_to 'Deletar', dish_path(dish.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{dish.name}?"}%>
+                    </td>
+                </tr>
             <% end %>
-            <h3><%= dish.name %></h3>
-            <p><%= dish.description %></p>
-            <%= link_to 'Ver detalhes', dish_path(dish.id)%>
-        </div>
-    <% end %>
-    <%= link_to 'Adicionar Prato', new_dish_path%>
+        </tbody>
+    </table>
+    <%= link_to 'Adicionar Prato', new_dish_path, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2'%>
 </section>
 
 <section class="mb-40">
@@ -30,7 +46,7 @@
                 <tr>
                     <td class="p-5">
                         <%= link_to beverage_path(beverage.id) do%>
-                            <div class="flex">
+                            <div class="flex gap-5">
                                 <% if beverage.photo.present? %>
                                     <%= image_tag beverage.photo,width: 60, height: 60,  class: ''%>
                                 <% end %>
@@ -49,6 +65,6 @@
             <% end %>
         </tbody>
     </table>
-    <%= link_to 'Adicionar Bebida', new_beverage_path%>
+    <%= link_to 'Adicionar Bebida', new_beverage_path, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2'%>
     
 </section>

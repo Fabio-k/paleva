@@ -1,27 +1,27 @@
 <%= form_with model: dish do |f| %>
     <% if dish.errors.any?%>
-        <p>Confira os erros a seguir:</p>
+        <p>Confira os erros abaixo:</p>
         <ul>
             <%dish.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
             <% end %>
         </ul>
     <% end %>
-    <div>
-        <%=f.label :name%>
+    <div class="field">
+        <p><%=f.label :name%></p>
         <%=f.text_field :name %>
     </div>
-    <div>
-        <%=f.label :description%>
+    <div class="field">
+        <p><%=f.label :description%></p>
         <%=f.text_field :description %>
     </div>
-    <div>
-        <%=f.label :calories%> <span>(opcional)</span>
+    <div class="field">
+        <p><%=f.label :calories%> <span>(opcional)</span></p>
         <%=f.number_field :calories%>
     </div>
-    <div>
-        <%=f.label :photo%>
+    <div class="field">
+        <p><%=f.label :photo%></p>
         <%=f.file_field :photo%>
     </div>
-    <%= f.submit button_text%>
+    <%= f.submit btn_message, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2 cursor-pointer'%>
 <% end %>

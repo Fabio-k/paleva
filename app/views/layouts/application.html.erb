@@ -18,21 +18,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-   
-      <header class="flex p-10 justify-between">
-        <h1 class="text-3xl font-bold" >PaLevá</h1>
-        <div class="flex gap-3">
-           <%if admin_signed_in? %>
-            <p><%=current_admin.name%></p>
-            <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
-          <% else %>
-            <%= link_to 'Entrar', new_admin_session_path%>
-           <% end %>
+  <body class="flex">
+    <aside class="flex flex-col justify-between w-64 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen p-4">
+      <section>
+        <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
+        <nav class="flex flex-col gap-3">
+          <div>
+            <h1 class="text-lg"><%= current_admin.restaurant.brand_name %></h1>
+          </div>
+          <%= link_to 'Cardápio', dashboard_path, class: ''%>
+        </nav>
+      </section>
+      
+       <div class="flex bg-neutral-300 rounded-xl justify-between px-4 py-3">
+          <p><%=current_admin.name%></p>
+          <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
         </div>
-        
-      </header>
-   
+    </aside>
+     
     <main class="container mx-auto mt-10 px-6">
       <div>
         <p class="notice"><%= notice %></p>

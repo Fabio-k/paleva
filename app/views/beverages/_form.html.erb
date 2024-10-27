@@ -10,25 +10,26 @@
         </ul>
         
     <% end %>
-    <div>
-        <%= f.label :photo%>
+    <div class="field">
+        <p><%= f.label :photo%></p>
         <%= f.file_field :photo%>
     </div>
-    <div>
-        <%= f.label :name%>
+
+    <div class="field">
+        <p><%= f.label :name%></p>
         <%= f.text_field :name%>
     </div>
-    <div>
-        <%= f.label :description%>
+    <div class="field">
+        <p><%= f.label :description%></p>
         <%= f.text_field :description%>
     </div>
-    <div>
-        <%= f.label :is_alcoholic%>
-        <%= f.check_box :is_alcoholic%>
-    </div>
-    <div>
-        <%= f.label :calories%> <span>(opcional)</span>
+    <div class="field">
+        <p><%= f.label :calories%> <span>(opcional)</span></p>
         <%= f.text_field :calories%>
     </div>
-    <%= f.submit btn_message%>
+    <div class="field">
+        <p><%= f.label :is_alcoholic%></p>
+        <%= f.check_box :is_alcoholic%>
+    </div>
+    <%= f.submit btn_message, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2 cursor-pointer'%>
 <% end %>

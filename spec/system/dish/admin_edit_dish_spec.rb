@@ -17,7 +17,7 @@ describe 'admin edit a dish' do
 
     login_as admin
     visit root_path
-    click_on 'Ver detalhes'
+    click_on 'lasanha'
     click_on 'Editar'
     fill_in 'Nome', with: 'Lasanha de abóbora'
     click_on 'Salvar alterações'
@@ -32,7 +32,7 @@ describe 'admin edit a dish' do
 
     login_as admin
     visit root_path
-    click_on 'Ver detalhes'
+    click_on 'lasanha'
     click_on 'Editar'
     fill_in 'Nome', with: ''
     click_on 'Salvar alterações'

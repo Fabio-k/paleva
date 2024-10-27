@@ -8,7 +8,6 @@ describe 'user delete dish' do
 
     login_as admin
     visit root_path
-    click_on 'Ver detalhes'
     click_on 'Deletar'
     
     expect(page).not_to have_content 'lasanha'
