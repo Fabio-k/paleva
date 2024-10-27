@@ -4,6 +4,8 @@
 <h1>
     <%= @beverage.name %> 
 </h1>
+<%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
+<%= link_to 'Deletar', beverage_path(@beverage.id), method: :delete%>
 <%if @beverage.is_alcoholic%>
     <span>Bebida Alcólica</span>
 <% else %>

@@ -1,0 +1,9 @@
+<div class="flex gap-3">
+    <% if item.photo.present?%>
+        <%= image_tag item.photo, width:100, height: 100%>
+    <% end %>
+    <section>
+        <h1><%= item.name %></h1>
+        <p><%= item.description %></p>
+    </section>
+</div>

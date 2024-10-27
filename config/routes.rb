@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :dishes, only: [:new, :create, :edit, :update, :show, :destroy]
   resources :beverages, only: [:new, :create, :show, :edit, :update, :destroy]
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+  get 'search', to: 'dashboard#search', as: 'search_item'
 
 end

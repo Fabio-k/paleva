@@ -22,10 +22,17 @@
     <aside class="flex flex-col justify-between w-64 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen p-4">
       <section>
         <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
-        <nav class="flex flex-col gap-3">
-          <div>
+        <div class="mb-2">
             <h1 class="text-lg"><%= current_admin.restaurant.brand_name %></h1>
           </div>
+        <nav class="flex flex-col gap-3">
+
+          <%= form_with url: search_item_path, method: :get do |f|%>
+            <%= f.label :query, 'Pesquisar por item'%>
+            <%= f.text_field :query, plachholder: 'prato, bebida', class: 'rounded'%>
+            <%= f.submit 'Pesquisar'%>
+          <% end %>
+
           <%= link_to 'Cardápio', dashboard_path, class: ''%>
         </nav>
       </section>
