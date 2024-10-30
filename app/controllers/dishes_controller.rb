@@ -1,7 +1,6 @@
 class DishesController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_dish, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_admin_dont_own_dish, only: [:show, :edit, :update, :destroy]
+  before_action :set_dish, only: [:show, :edit, :update, :destroy, :change_status]
   def new
     @dish = Dish.new
   end
@@ -40,18 +39,23 @@ class DishesController < ApplicationController
     end
   end
 
+  def change_status
+    @dish.is_active = !@dish.is_active
+    if @dish.save
+      redirect_to @dish
+    end
+
+  end
+
   private 
 
   def set_dish
     @dish = Dish.find(params[:id])
+    redirect_to dashboard_path, notice: 'Prato não foi encontrado' unless admin_owns_dish?
   end
 
   def dish_params
     params.require(:dish).permit(:name, :description, :calories, :photo)
-  end
-
-  def redirect_if_admin_dont_own_dish
-    redirect_to dashboard_path, notice: 'Prato não foi encontrado' unless admin_owns_dish?
   end
 
   def admin_owns_dish?

@@ -1,8 +1,12 @@
-<% if @dish.photo.present?%>
-    <%= image_tag @dish.photo%>
-<%end%>
 <h1><%= @dish.name %></h1>
 <%= link_to 'Editar', edit_dish_path(@dish.id)%>
 <%= link_to 'Deletar', dish_path(@dish.id), method: :delete%>
+<p>Status: <%= @dish.is_active ? "Ativo" : "Desativado" %></p> 
+<%= button_to @dish.is_active ? "Desativar" : "Ativar", change_status_dish_path(@dish.id), method: :patch%>
+<% if @dish.photo.present?%>
+    <%= image_tag @dish.photo%>
+<%end%>
 <p><%= @dish.description %></p>
-<p>calorias</p>
+<%if @dish.calories.present?%>
+    <p>calorias <%= @dish.calories %></p>
+<% end %>

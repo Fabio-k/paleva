@@ -1,0 +1,7 @@
+<section id="<%= item.model_name.human %>" class="p-10 mb-20 border-2 border-default-200 rounded-md">
+    <h2 class="text-2xl"><%= t(item.model_name.human, count: 2) %></h2>
+    <div class="min-h-[2px] bg-gray-200 my-5"></div>
+
+    <%= yield%>
+
+</section>

@@ -14,7 +14,9 @@
     <%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
     <%= link_to 'Deletar', beverage_path(@beverage.id), method: :delete%>
 </div>
-    
+
+<p>Status: <%= @beverage.is_active ? "Ativo" : "Desativado" %></p> 
+<%= button_to @beverage.is_active ? "Desativar" : "Ativar", change_status_beverage_path(@beverage.id), method: :patch%>
 
 <%if @beverage.photo.present?%>
     <%= image_tag @beverage.photo, class: 'w-50'%>

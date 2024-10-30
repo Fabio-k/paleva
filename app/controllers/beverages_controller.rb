@@ -1,6 +1,6 @@
 class BeveragesController < ApplicationController
 
-  before_action :set_beverage_and_valid_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_beverage_and_valid_owner, only: [:show, :edit, :update, :destroy, :change_status]
   def new
     @beverage = Beverage.new
   end
@@ -35,6 +35,17 @@ class BeveragesController < ApplicationController
     flash[:alert] = 'Bebida não encontrada' unless @beverage.delete
     redirect_to dashboard_path
   end
+
+  def change_status
+    @beverage.is_active = !@beverage.is_active
+    if @beverage.save
+      redirect_to @beverage
+    else
+      flash[:notice] = 'Erro ao tentar mudar status'
+      render 'show'
+    end
+  end
+
 
   private
 

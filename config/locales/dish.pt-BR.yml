@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      dish: Prato
+      dish:
+        one: Prato
+        other: Pratos
     attributes:
       dish:
         name: Nome
