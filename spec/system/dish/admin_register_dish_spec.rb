@@ -26,12 +26,12 @@ describe 'admin register a dish' do
     fill_in 'Nome', with: 'Lasanha'
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'
-    attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanha.jpeg')
+    attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg')
     click_on 'Adicionar Prato'
 
     expect(page).to have_content 'Lasanha'
     expect(page).to have_content 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
-    expect(page).to have_css 'img[src*="lasanha.jpeg"]'
+    expect(page).to have_css 'img[src*="lasanhadequeijo.jpeg"]'
   end
 
   it 'with fail' do
@@ -44,7 +44,7 @@ describe 'admin register a dish' do
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'
-    attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanha.jpeg')
+    attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg')
     click_on 'Adicionar Prato'
 
     expect(page).to have_content 'Nome não pode ficar em branco'

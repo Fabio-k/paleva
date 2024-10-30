@@ -6,7 +6,7 @@ describe 'user search for dish or beverage' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     Beverage.create!(name: 'Suco de Limão', description: 'Feito com polpa de limão na hora', is_alcoholic: false, photo: Rails.root.join('spec', 'support', 'sucodelimao.jpeg') ,restaurant: restaurant)
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito na hora', is_alcoholic: false, restaurant: restaurant)
-    Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanha.jpeg'), restaurant: restaurant)
+    Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg'), restaurant: restaurant)
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
     login_as admin
@@ -15,7 +15,7 @@ describe 'user search for dish or beverage' do
     click_on 'Pesquisar'
 
     expect(page).to have_content 'Resultados da pesquisa'
-    expect(page).to have_css 'img[src*="lasanha.jpeg"]'
+    expect(page).to have_css 'img[src*="lasanhadequeijo.jpeg"]'
     expect(page).to have_css 'img[src*="sucodelimao.jpeg"]'
     expect(page).to have_link 'lasanha'
     expect(page).to have_link 'Lasanha de queijo com abóbora'
@@ -45,7 +45,7 @@ describe 'user search for dish or beverage' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     Beverage.create!(name: 'Suco de Limão', description: 'Feito com polpa de limão na hora', is_alcoholic: false, photo: Rails.root.join('spec', 'support', 'sucodelimao.jpeg') ,restaurant: restaurant)
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito na hora', is_alcoholic: false, restaurant: restaurant)
-    Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanha.jpeg'), restaurant: restaurant)
+    Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg'), restaurant: restaurant)
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
     login_as admin
