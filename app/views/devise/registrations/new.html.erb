@@ -1,46 +1,56 @@
-<div class="flex flex-col w-80">
-  <h2 class="text-3xl mb-10">Criar Dono de restaurante</h2>
+<div class="bg-orange-100 py-10 flex flex-grow w-full max-w-full justify-center gap-20 px-10">
+    <section class="mt-20">
+        <h1 class="text-5xl font-bold">Gerencie seus pedidos</h1>
+        <h1 class="text-5xl font-bold mb-3">com <span class="text-amber-500">eficiência</span>.</h1>
+        <h1 class="text-3xl font-medium mb-20">PaLevá é o caminho!</h1>
+          <%= image_tag 'store.svg', alt: 'Loja', class: 'w-3/4'%>
+        
+    </section>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <section class="bg-white flex flex-col w-2/5 max-w-[460px] py-10 px-10 shadow-xl rounded">
+        <h1 class="text-2xl font-medium mb-2">Cadastre seu Restaurante</h1>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="field">
-      <%= f.label :cpf %><br />
-      <%= f.text_field :cpf, autofocus: true, autocomplete: "cpf", class: 'input-primary'%>
-    </div>
+            <div class="field">
+            <%= f.label :cpf %><br />
+            <%= f.text_field :cpf, autofocus: true, autocomplete: "cpf", class: 'input-primary'%>
+            </div>
 
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
-    </div>
+            <div class="field">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
+            </div>
 
-    <div class="field">
-      <%= f.label :last_name %><br />
-      <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
-    </div>
+            <div class="field">
+            <%= f.label :last_name %><br />
+            <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
+            </div>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autocomplete: "email", class: 'input-primary' %>
-    </div>
+            <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autocomplete: "email", class: 'input-primary' %>
+            </div>
 
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: 'input-primary' %>
-    </div>
+            <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(minímo de <%= @minimum_password_length %>)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password", class: 'input-primary' %>
+            </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'input-primary' %>
-    </div>
+            <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'input-primary' %>
+            </div>
 
-    <div class="actions mb-5 mt-5">
-      <%= f.submit "Criar Conta", class: 'btn-submit'%>
-    </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+            <div class="actions mb-5 mt-5">
+            <%= f.submit "Criar Conta", class: 'btn-submit'%>
+            </div>
+             <%= render "devise/shared/links" %>
+        <% end %>
+    </section>
 </div>
+
+ 

@@ -35,7 +35,7 @@ describe 'admin visit dashboard' do
     Dish.create!(name: 'feijoada', description: 'feijoada feita no forno à lenha', restaurant: other_restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     expect(page).to have_content 'lasanha'
     expect(page).not_to have_content 'feijoada'
   end

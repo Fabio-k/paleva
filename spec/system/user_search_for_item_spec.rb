@@ -10,7 +10,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     fill_in 'Pesquisar por item', with: 'com'
     click_on 'Pesquisar'
 
@@ -32,7 +32,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     fill_in 'Pesquisar por item', with: 'zark'
     click_on 'Pesquisar'
 
@@ -49,7 +49,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     fill_in 'Pesquisar por item', with: 'Suco'
     click_on 'Pesquisar'
 
@@ -69,7 +69,7 @@ describe 'user search for dish or beverage' do
     Beverage.create!(name: 'Suco de Açai', description: 'com cobertura extra', is_alcoholic: false ,restaurant: other_restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     fill_in 'Pesquisar por item', with: 'extra'
     click_on 'Pesquisar'
 

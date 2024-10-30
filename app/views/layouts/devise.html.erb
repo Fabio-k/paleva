@@ -19,19 +19,21 @@
   </head>
 
   <body class="h-screen flex flex-col">
-    <header class="text-3xl w-full px-10 py-4 bg-green-600 text-white">
-      <h1>Pa<span class="text-amber-300">Levá</span></h1>
+    <header class="flex items-center justify-between w-full px-10 py-4 shadow">
+      <h1 class="text-3xl">PaLevá</h1>
       <div class="flex gap-3">
-           <%if controller_name == 'home' %>
-            <%= link_to 'Entrar', new_admin_session_path%>
+           <%if controller_name == 'registrations' %>
+            <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
            <% end %>
         </div>
     </header>
-    <div class="w-full flex text-center my-4 min-h-20 items-center justify-center">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
-    <main class="flex-grow flex flex-col items-center bg-white">
+    <%if controller_name != 'registrations' %>
+      <div class="w-full flex text-center my-4 min-h-20 items-center justify-center">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+    <main class="flex-grow flex flex-col items-center">
       <%= yield %>
     </main>
   </body>

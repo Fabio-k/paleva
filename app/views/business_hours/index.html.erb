@@ -1,25 +1,40 @@
-<h1>Definir Horários</h1>
-<%BusinessHour.day_of_weeks.keys.each do |dw| %>
-    <h2><%= t(dw)%></h2>
-    <% @current_schedule.each do |day|%>
-        <%if day.day_of_week == dw%>
-            <div class="flex">
-                <p><%= day.opening_hour.strftime('%H:%M')%> - <%= day.closing_hour.strftime('%H:%M')%></p>
+<div class="flex gap-20">
+    <section>
+        <%BusinessHour.day_of_weeks.keys.each do |dw| %>
+            <div class="flex flex-col mb-5 items-center">
+                <h2 class="text-2xl"><%= t(dw)%></h2>
+                <% @current_schedule.each do |day|%>
+                    <%if day.day_of_week == dw%>
+                        <div class="flex">
+                            <p><%= day.opening_hour.strftime('%H:%M')%> - <%= day.closing_hour.strftime('%H:%M')%></p>
+                        </div>
+                    <% end %>
+                <% end %>
             </div>
         <% end %>
-    <% end %>
-  
-<% end %>
+    </section>
 
-<%= form_with model: @business_hour do |f|%>
-    <div>
-        <%= f.label :day_of_week%>
-        <%= f.select :day_of_week, options_for_select(BusinessHour.day_of_weeks.keys.map { |day| [t(day), day] }) %>
-        <%= f.label :opening_hour %>
-        <%= f.time_field :opening_hour%> - 
-        <%= f.label :closing_hour %>
-        <%= f.time_field :closing_hour%>
-        <%= f.submit 'Adicionar'%>
-    </div>
-<% end %>
-
+    <section>
+        <h1 class="text-2xl">Adicionar Horário</h1>
+        <%= form_with model: @business_hour do |f|%>
+            <div>
+                <p><%= f.label :day_of_week%></p>
+                <%= f.select :day_of_week, options_for_select(BusinessHour.day_of_weeks.keys.map { |day| [t(day), day] }) %>
+            </div>
+                
+            <div class="flex">
+                <div>
+                    <p><%= f.label :opening_hour %></p>
+                    <%= f.time_field :opening_hour%> -
+                </div>
+                <div>
+                    <p><%= f.label :closing_hour %></p> 
+                    <%= f.time_field :closing_hour%>
+                </div>
+            </div>
+                
+            <%= f.submit 'Adicionar'%>
+        <% end %>
+    </section>
+</div>
+<%= link_to 'Ir para o dashboard', dashboard_path, class:'font-medium text-white py-3 px-4 rounded-xl text-center bg-amber-500 cursor-pointer'%>

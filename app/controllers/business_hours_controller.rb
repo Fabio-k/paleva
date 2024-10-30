@@ -1,5 +1,6 @@
 class BusinessHoursController < ApplicationController
   before_action :authenticate_admin!
+  layout 'devise'
   def index
     @business_hour = BusinessHour.new
     @current_schedule = current_admin.restaurant.business_hours

@@ -21,7 +21,7 @@ describe 'admin register a dish' do
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Adicionar Prato'
     fill_in 'Nome', with: 'Lasanha'
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
@@ -39,7 +39,7 @@ describe 'admin register a dish' do
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Adicionar Prato'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'

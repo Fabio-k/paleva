@@ -17,7 +17,9 @@ describe 'admin register restaurant' do
     fill_in 'E-mail', with: 'Djapa@email.com'
     click_on 'Cadastrar'
 
+    admin.reload
 
-    expect(page).to have_content 'Definir Horários'
+    expect(page).to have_content 'Adicionar Horário'
+    expect(admin.restaurant.nil?).to eq false
   end
 end

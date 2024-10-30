@@ -7,7 +7,7 @@ describe 'admin edit a beverage' do
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Editar'
     fill_in 'Nome', with: 'Suco de maracuja'
     click_on 'Salvar alterações'
@@ -21,7 +21,7 @@ describe 'admin edit a beverage' do
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Editar'
     fill_in 'Nome', with: ''
     click_on 'Salvar alterações'

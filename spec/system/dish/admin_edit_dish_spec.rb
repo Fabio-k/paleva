@@ -16,7 +16,7 @@ describe 'admin edit a dish' do
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'lasanha'
     click_on 'Editar'
     fill_in 'Nome', with: 'Lasanha de abóbora'
@@ -31,7 +31,7 @@ describe 'admin edit a dish' do
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'lasanha'
     click_on 'Editar'
     fill_in 'Nome', with: ''

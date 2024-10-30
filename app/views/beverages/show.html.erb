@@ -1,14 +1,25 @@
+
+<div>
+    <h1 class="text-3xl">
+        <%= @beverage.name %> 
+    </h1>
+    <%if @beverage.is_alcoholic%>
+        <span>Bebida Alcólica</span>
+    <% else %>
+        <span>Bebida não alcólica</span>
+    <% end %>
+</div>
+
+<div>
+    <%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
+    <%= link_to 'Deletar', beverage_path(@beverage.id), method: :delete%>
+</div>
+    
+
 <%if @beverage.photo.present?%>
     <%= image_tag @beverage.photo, class: 'w-50'%>
 <% end %>
-<h1>
-    <%= @beverage.name %> 
-</h1>
-<%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
-<%= link_to 'Deletar', beverage_path(@beverage.id), method: :delete%>
-<%if @beverage.is_alcoholic%>
-    <span>Bebida Alcólica</span>
-<% else %>
-    <span>Bebida não alcólica</span>
-<% end %>
+
+
+
 <p><%= @beverage.description%></p>

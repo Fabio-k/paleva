@@ -7,7 +7,7 @@ describe 'user delete beverage' do
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Deletar'
 
     expect(page).not_to have_content 'Suco de Laranja'

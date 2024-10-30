@@ -4,7 +4,7 @@ describe 'admin sign in' do
   it 'with success' do
     Admin.create!(cpf: CPF.generate, name: 'Roberto', last_name: 'Carlos', email: 'Roberto@email.com', password: 'senha123senha')
     
-    visit root_path
+    visit '/'
     click_on 'Entrar'
     fill_in 'E-mail', with: 'Roberto@email.com'
     fill_in 'Senha', with: 'senha123senha'
@@ -18,7 +18,7 @@ describe 'admin sign in' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Roberto', last_name: 'Carlos', email: 'Roberto@email.com', password: 'senha123senha')
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
     
-    visit root_path
+    visit "/"
     click_on 'Entrar'
     fill_in 'E-mail', with: 'Roberto@email.com'
     fill_in 'Senha', with: 'senha123senha'
@@ -27,5 +27,6 @@ describe 'admin sign in' do
     click_on 'Sair'
 
     expect(page).to have_content 'Logout efetuado com sucesso'
+    expect(current_path).to eq new_admin_session_path
   end
 end

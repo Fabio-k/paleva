@@ -4,7 +4,7 @@
 
 @layer components {
   .btn-submit {
-    @apply font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-green-600 cursor-pointer;
+    @apply font-medium w-full text-white py-3 px-4 rounded-xl text-center bg-amber-500 cursor-pointer;
   }
   .input-primary {
     @apply w-full border-none bg-neutral-200 rounded-xl py-3 px-4;

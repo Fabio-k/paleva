@@ -7,7 +7,7 @@ describe 'user delete dish' do
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Deletar'
     
     expect(page).not_to have_content 'lasanha'

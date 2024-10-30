@@ -6,7 +6,7 @@ describe 'admin create a beverage' do
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Adicionar Bebida'
     fill_in 'Nome', with: 'Suco de limão'
     fill_in 'Descrição', with: 'Feito na hora'
@@ -24,7 +24,7 @@ describe 'admin create a beverage' do
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
 
     login_as admin
-    visit root_path
+    visit "/"
     click_on 'Adicionar Bebida'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''

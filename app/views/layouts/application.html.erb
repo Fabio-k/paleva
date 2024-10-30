@@ -21,7 +21,9 @@
   <body class="flex">
     <aside class="flex flex-col justify-between w-64 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen p-4">
       <section>
-        <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
+        <%= link_to dashboard_path do%>
+          <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
+        <% end %>
         <div class="mb-2">
             <h1 class="text-lg"><%= current_admin.restaurant.brand_name %></h1>
           </div>
