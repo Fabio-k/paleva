@@ -19,7 +19,7 @@
   </head>
 
   <body class="flex">
-    <aside class="flex flex-col justify-between w-64 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen p-4">
+    <aside class="fixed flex flex-col justify-between w-64 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen p-4">
       <section>
         <%= link_to dashboard_path do%>
           <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
@@ -45,7 +45,7 @@
         </div>
     </aside>
      
-    <main class="container mx-auto mt-10 px-6">
+    <main class="container ml-64 mx-auto mt-10 px-6">
       <div>
         <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>

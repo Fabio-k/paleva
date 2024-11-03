@@ -1,5 +1,6 @@
 <%= render 'item_display', item: Dish.new do%>
     <% @dishes.each do |dish|%>
+    <div class="mb-10">
         <div class="flex gap-5 p-5 items-center">
             <%= link_to dish_path(dish.id) do%>
                 <div class="flex gap-5 items-center">
@@ -16,8 +17,16 @@
             <% end %>
         
             <%= link_to 'Editar', edit_dish_path(dish.id)%>
-            <%= link_to 'Deletar', dish_path(dish.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{dish.name}?"}%>
+            <%= link_to 'Remover', dish_path(dish.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{dish.name}?"}%>
 
+        </div>
+        <% dish.portions.each do |portion|%>
+            <div class="mx-20 flex w-1/2 justify-between py-2">
+                <p><%= portion.description %></p>
+                <p><%= portion.show_price%></p>
+            </div>
+        <% end %>
+        <%= link_to 'Adicionar Porção', new_iten_portion_path(iten_id: dish.id), class: 'w-1/2 mx-20 text-center'%>
         </div>
     <% end %>
     <%= link_to 'Adicionar Prato', new_dish_path, class: 'rounded-xl text-white font-medium bg-amber-500 px-4 py-2'%>
@@ -25,6 +34,7 @@
 
 <%= render 'item_display', item: Beverage.new do%>
     <% @beverages.each do |beverage|%>
+    <div class="mb-10">
         <div class="flex gap-5 p-5 items-center">
             <%= link_to beverage_path(beverage.id) do%>
                 <div class="flex gap-5 items-center">
@@ -42,8 +52,16 @@
             <% end %>
 
             <%= link_to 'Editar', edit_beverage_path(beverage.id)%>
-            <%= link_to 'Deletar', beverage_path(beverage.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{beverage.name}?"}%>
+            <%= link_to 'Remover', beverage_path(beverage.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{beverage.name}?"}%>
         </div>
+        <% beverage.portions.each do |portion|%>
+            <div class="mx-20 flex w-1/2 justify-between py-2">
+                <p><%= portion.description %></p>
+                <p><%= portion.show_price%></p>
+            </div>
+        <% end %>
+        <%= link_to 'Adicionar Porção', new_iten_portion_path(iten_id: beverage.id), class: 'w-1/2 mx-20 text-center'%>
+    </div>
     <% end %>
     <%= link_to 'Adicionar Bebida', new_beverage_path, class: 'rounded-xl text-white font-medium bg-amber-500 px-4 py-2'%>
 <% end %>

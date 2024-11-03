@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_dish, only: [:show, :edit, :update, :destroy, :change_status]
+  before_action :set_dish, only: [:show, :edit, :update, :destroy]
   def new
     @dish = Dish.new
   end
@@ -32,20 +32,13 @@ class DishesController < ApplicationController
   end
 
   def destroy
-    if @dish.delete
-      redirect_to dashboard_path
+    if @dish.update(is_removed: true)
+      redirect_to dashboard_path, notice: "Prato removido com sucesso"
     else
       render 'show'
     end
   end
 
-  def change_status
-    @dish.is_active = !@dish.is_active
-    if @dish.save
-      redirect_to @dish
-    end
-
-  end
 
   private 
 

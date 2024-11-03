@@ -1,4 +1,3 @@
-
 <div>
     <h1 class="text-3xl">
         <%= @beverage.name %> 
@@ -12,16 +11,34 @@
 
 <div>
     <%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
-    <%= link_to 'Deletar', beverage_path(@beverage.id), method: :delete%>
+    <%= link_to 'Remover', beverage_path(@beverage.id), method: :delete%>
 </div>
 
 <p>Status: <%= @beverage.is_active ? "Ativo" : "Desativado" %></p> 
-<%= button_to @beverage.is_active ? "Desativar" : "Ativar", change_status_beverage_path(@beverage.id), method: :patch%>
+<%= button_to @beverage.is_active ? "Desativar" : "Ativar", change_status_iten_path(@beverage.id), method: :patch%>
 
 <%if @beverage.photo.present?%>
     <%= image_tag @beverage.photo, class: 'w-50'%>
 <% end %>
 
-
-
 <p><%= @beverage.description%></p>
+
+<section id="portion">
+    <% @beverage.portions.each do |portion|%>
+        <div class="flex w-1/2 justify-between py-2">
+            <p><%= portion.description %></p>
+            <p><%= portion.show_price%></p>
+            <%= link_to 'Editar', edit_portion_path(portion.id)%>
+        </div>
+        <div>
+            <p>Histórico de preços</p>
+            <% portion.portion_prices.order(created_at: :desc).each do |price|%>
+                <div class="flex gap-5">
+                    <p><%= price.show_price %></p>
+                    <p><%= price.created_at.strftime("%d/%m/%y") %></p>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+</section>
+

@@ -1,0 +1,14 @@
+<h1>Editar Porção</h1>
+<%= form_with model: @portion, local: true do |f| %>
+  <div>
+    <p><%= f.label :description, 'Descrição' %></p>
+    <%= f.text_field :description %>
+  </div>
+
+    <div>
+        <p><%= f.label :price, 'Preço ex (1250 = 12,50)' %></p>
+        <%= f.number_field :price %>
+    </div>
+
+  <%= f.submit "Salvar alterações" %>
+<% end %>

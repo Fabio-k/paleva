@@ -32,7 +32,7 @@ class BeveragesController < ApplicationController
   end
 
   def destroy
-    flash[:alert] = 'Bebida não encontrada' unless @beverage.delete
+    flash[:alert] = 'Bebida não encontrada' unless @beverage.update(is_removed: true)
     redirect_to dashboard_path
   end
 

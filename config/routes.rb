@@ -12,12 +12,13 @@ Rails.application.routes.draw do
   
   resources :restaurants, only: [:new, :create]
   resources :business_hours, only: [:index, :new, :create, :edit, :update]
-  resources :dishes, only: [:new, :create, :edit, :update, :show, :destroy] do
+  resources :dishes, only: [:new, :create, :edit, :update, :show, :destroy]
+  resources :beverages, only: [:new, :create, :show, :edit, :update, :destroy] 
+  resources :itens do
     patch 'change_status', on: :member
+    resources :portions, only: [:new, :create]
   end
-  resources :beverages, only: [:new, :create, :show, :edit, :update, :destroy] do
-    patch 'change_status', on: :member
-  end
+  resources :portions, only: [:edit, :update]
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   get 'search', to: 'dashboard#search', as: 'search_item'
 
