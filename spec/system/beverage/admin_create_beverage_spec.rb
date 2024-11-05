@@ -7,12 +7,16 @@ describe 'admin create a beverage' do
 
     login_as admin
     visit "/"
-    click_on 'Adicionar Bebida'
-    fill_in 'Nome', with: 'Suco de limão'
+    within 'section#menu_Item' do
+      click_on 'Adicionar Item'
+    end
+    select 'Bebida', from: 'item_type_select'
+    within 'div#item_name' do
+      fill_in 'Nome', with: 'Suco de limão'
+    end
     fill_in 'Descrição', with: 'Feito na hora'
-    check 'Alcólico'
-    attach_file 'Foto da Bebida', Rails.root.join('spec', 'support', 'sucodelimao.jpeg')
-    click_on 'Adicionar Bebida'
+    attach_file 'item_photo', Rails.root.join('spec', 'support', 'sucodelimao.jpeg')
+    click_on 'Adicionar Item'
 
     expect(page).to have_content 'Suco de limão'
     expect(page).to have_css 'img[src*="sucodelimao.jpeg"]'
@@ -25,10 +29,14 @@ describe 'admin create a beverage' do
 
     login_as admin
     visit "/"
-    click_on 'Adicionar Bebida'
-    fill_in 'Nome', with: ''
+    within 'section#menu_Item' do
+      click_on 'Adicionar Item'
+    end
+    within 'div#item_name' do
+      fill_in 'Nome', with: ''
+    end
     fill_in 'Descrição', with: ''
-    click_on 'Adicionar Bebida'
+    click_on 'Adicionar Item'
 
     expect(page).to have_content 'Nome não pode ficar em branco'
   end

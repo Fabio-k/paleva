@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'admin register a dish' do
   it 'and should be authenticated' do
-    visit new_dish_path
+    visit new_item_path
 
     expect(current_path).to eq new_admin_session_path
   end
@@ -11,7 +11,7 @@ describe 'admin register a dish' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
 
     login_as admin
-    visit new_dish_path
+    visit new_item_path
 
     expect(current_path).to eq new_restaurant_path
   end
@@ -22,12 +22,16 @@ describe 'admin register a dish' do
 
     login_as admin
     visit "/"
-    click_on 'Adicionar Prato'
-    fill_in 'Nome', with: 'Lasanha'
+    within 'section#menu_Item' do
+      click_on 'Adicionar Item'
+    end
+    within 'div#item_name' do
+       fill_in 'Nome', with: 'Lasanha'
+    end
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'
     attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg')
-    click_on 'Adicionar Prato'
+    click_on 'Adicionar Item'
 
     expect(page).to have_content 'Lasanha'
     expect(page).to have_content 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
@@ -40,12 +44,16 @@ describe 'admin register a dish' do
 
     login_as admin
     visit "/"
-    click_on 'Adicionar Prato'
-    fill_in 'Nome', with: ''
+    within 'section#menu_Item' do
+      click_on 'Adicionar Item'
+    end
+    within 'div#item_name' do
+       fill_in 'Nome', with: ''
+    end
     fill_in 'Descrição', with: 'Camadas de massa intercaladas com molho bolonhesa, molho bechamel e queijo derretido.'
     fill_in 'Calorias', with: '1400'
     attach_file 'Foto do prato', Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg')
-    click_on 'Adicionar Prato'
+    click_on 'Adicionar Item'
 
     expect(page).to have_content 'Nome não pode ficar em branco'
   end

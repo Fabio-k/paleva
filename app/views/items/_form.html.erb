@@ -1,0 +1,54 @@
+<%= form_with model: caracteristic do |f|%>
+    <div id="caracteristic">
+        <%= f.label :name, 'Nome'%>
+        <%= f.text_field :name%>
+        <%= f.submit 'Adicionar característica'%>
+    </div>
+<% end %>
+
+<%= form_with model: item,scope: :item, url: item.persisted? ? item_path(item): items_path, local: true, data: { controller: "item" } do |f| %>
+    <% if item.errors.any?%>
+        <p>Confira os erros abaixo:</p>
+        <ul>
+            <%item.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+        <div class="field">
+            <%= f.label :type, 'Tipo de item' %>
+            <%= f.select :type, options_for_select([['Prato', 'Dish'], ['Bebida', 'Beverage']], item.type), {}, { id: 'item_type_select' } %>
+        </div>
+
+        <div id="item_name" class="field">
+            <p><%= f.label :name %></p>
+            <%= f.text_field :name %>
+        </div>
+
+        <div class="field">
+            <p><%= f.label :description %></p>
+            <%= f.text_area :description %>
+        </div>
+
+        <div class="field">
+            <%= f.label :calories %>
+            <%= f.number_field :calories %>
+        </div>
+
+        <div class="field">
+            <%= f.label :photo %>
+            <%= f.file_field :photo, id: 'item_photo'%>
+        </div>
+
+        <div id="alcoholic_field" class="field" style="display: none;">
+            <p><%= f.label :is_alcoholic%></p>
+            <%= f.check_box :is_alcoholic%>
+        </div>
+
+        <div class="field">
+            <%= f.label :caracteristics, 'Características' %>
+            <%= f.collection_check_boxes :caracteristics, @caracteristics, :id, :name %>
+        </div>
+    
+    <%= f.submit btn_message, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2 cursor-pointer'%>
+<% end %>

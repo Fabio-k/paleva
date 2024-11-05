@@ -9,7 +9,9 @@ describe 'admin edit a beverage' do
     login_as admin
     visit "/"
     click_on 'Editar'
-    fill_in 'Nome', with: 'Suco de maracuja'
+    within 'div#item_name' do
+      fill_in 'Nome', with: 'Suco de maracuja'
+    end
     click_on 'Salvar alterações'
 
     expect(page).to have_content 'Suco de maracuja'
@@ -23,7 +25,9 @@ describe 'admin edit a beverage' do
     login_as admin
     visit "/"
     click_on 'Editar'
-    fill_in 'Nome', with: ''
+    within 'div#item_name' do
+      fill_in 'Nome', with: ''
+    end
     click_on 'Salvar alterações'
 
     expect(page).to have_content 'Nome não pode ficar em branco'
@@ -40,7 +44,7 @@ describe 'admin edit a beverage' do
     beverage = Beverage.create!(name: 'Mushrom juice', description: 'a very delicious juice', is_alcoholic: true, restaurant: other_restaurant)
 
     login_as admin
-    visit edit_beverage_path(beverage.id)
+    visit edit_item_path(beverage.id)
 
     expect(current_path).to eq dashboard_path
     expect(page).not_to have_content 'Mushrom juice'

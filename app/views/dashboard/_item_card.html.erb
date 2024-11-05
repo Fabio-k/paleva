@@ -1,0 +1,13 @@
+<div class="mb-10">
+    <div class="flex gap-5 p-5 items-center">
+        <%= link_to item_path(item.id) do%>
+            <%= render 'item_details', item: item%>
+        <% end %>
+    
+        <%= link_to 'Editar', edit_item_path(item.id)%>
+        <%= link_to 'Remover', item_path(item.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja remover #{item.name}?"}%>
+
+    </div>
+    <%= render item.portions%>
+    <%= link_to 'Adicionar Porção', new_item_portion_path(item_id: item.id), class: 'w-1/2 mx-20 text-center'%>
+</div>

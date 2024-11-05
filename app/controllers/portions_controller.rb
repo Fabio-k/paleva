@@ -1,14 +1,14 @@
 class PortionsController < ApplicationController
   def new
-    @item = Item.find(params[:iten_id])
+    @item = Item.find(params[:item_id])
   end
 
   def create 
-    @item = Item.find(params[:iten_id])
+    @item = Item.find(params[:item_id])
     @portion = @item.portions.build(description: params[:description], price: params[:price])
     @portion_price = @portion.portion_prices.build(price: params[:price])
     if @portion.save && @portion_price.save
-      redirect_to @item
+      redirect_to item_path(@item.id)
     else
       flash.now[:alert] = "Erro ao tentar salvar a porção"
       render :new, status: :unprocessable_entity
@@ -28,9 +28,9 @@ class PortionsController < ApplicationController
         portion_price.save
       end
 
-      redirect_to @portion.item
+      redirect_to item_path(@portion.item)
     else
-      redirect_to @portion.item, alert:  'Erro ao tentar salvar alterações'
+      redirect_to item_path(@portion.item), alert:  'Erro ao tentar salvar alterações'
     end
     
   end

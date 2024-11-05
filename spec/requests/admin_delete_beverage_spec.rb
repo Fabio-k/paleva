@@ -11,9 +11,9 @@ describe 'admin delete beverage' do
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
     login_as admin
-    delete beverage_path(beverage.id)
+    delete item_path(beverage.id)
     expect(response).to redirect_to dashboard_path
     follow_redirect!
-    expect(response.body).to include('Bebida não encontrada')
+    expect(response.body).to include('Item não foi encontrado')
   end
 end

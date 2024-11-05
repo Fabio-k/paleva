@@ -1,30 +1,31 @@
-<div>
-    <h1 class="text-3xl">
-        <%= @beverage.name %> 
-    </h1>
-    <%if @beverage.is_alcoholic%>
+<h1><%= @item.name %></h1>
+
+<% @item.caracteristics.each do |c|%>
+    <p>#<%= c.name %></p>
+<% end %>
+
+<% if @item.type == 'Beverage'%>
+    <%if @item.is_alcoholic%>
         <span>Bebida Alcólica</span>
     <% else %>
         <span>Bebida não alcólica</span>
     <% end %>
-</div>
-
-<div>
-    <%= link_to 'Editar', edit_beverage_path(@beverage.id)%>
-    <%= link_to 'Remover', beverage_path(@beverage.id), method: :delete%>
-</div>
-
-<p>Status: <%= @beverage.is_active ? "Ativo" : "Desativado" %></p> 
-<%= button_to @beverage.is_active ? "Desativar" : "Ativar", change_status_iten_path(@beverage.id), method: :patch%>
-
-<%if @beverage.photo.present?%>
-    <%= image_tag @beverage.photo, class: 'w-50'%>
 <% end %>
 
-<p><%= @beverage.description%></p>
+<%= link_to 'Editar', edit_item_path(@item.id)%>
+<%= link_to 'Remover', item_path(@item.id), method: :delete%>
+<p>Status: <%= @item.is_active ? "Ativo" : "Desativado" %></p> 
+<%= button_to @item.is_active ? "Desativar" : "Ativar", change_status_item_path(@item.id), method: :patch%>
+<% if @item.photo.present?%>
+    <%= image_tag @item.photo%>
+<%end%>
+<p><%= @item.description %></p>
+<%if @item.calories.present?%>
+    <p>calorias <%= @item.calories %></p>
+<% end %>
 
 <section id="portion">
-    <% @beverage.portions.each do |portion|%>
+    <% @item.portions.each do |portion|%>
         <div class="flex w-1/2 justify-between py-2">
             <p><%= portion.description %></p>
             <p><%= portion.show_price%></p>
@@ -41,4 +42,3 @@
         </div>
     <% end %>
 </section>
-

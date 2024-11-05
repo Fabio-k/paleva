@@ -1,0 +1,27 @@
+pt-BR:
+  activerecord:
+    models:
+      beverage:
+        one: Bebida
+        other: Bebidas
+      dish:
+        one: Prato
+        other: Pratos
+      item: Item
+    attributes:
+      dish:
+        name: Nome
+        description: Descrição
+        calories: Calorias
+        photo: Foto do prato
+      beverage:
+        name: Nome
+        description: Descrição
+        is_alcoholic: Alcólico
+        calories: Calorias
+        photo: Foto da Bebida
+      item:
+        name: Nome
+        description: Descrição
+        calories: Calorias
+        photo: Foto do prato

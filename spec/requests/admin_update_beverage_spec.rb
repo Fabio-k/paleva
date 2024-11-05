@@ -11,9 +11,9 @@ describe 'admin update beverage' do
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
     login_as admin
-    patch beverage_path(beverage.id), params: {beverage: {name: 'Suco de limão'}}
+    patch item_path(beverage.id), params: {beverage: {name: 'Suco de limão'}}
     expect(response).to redirect_to dashboard_path
     follow_redirect!
-    expect(response.body).to include('Bebida não encontrada')
+    expect(response.body).to include('Item não foi encontrado')
   end
 end

@@ -11,9 +11,9 @@ describe 'admin update dish' do
     dish = Dish.create!(name: 'feijoada', description: 'feijoada feita no forno à lenha', restaurant: other_restaurant)
 
     login_as admin
-    get dish_path(dish.id)
+    get item_path(dish.id)
     expect(response).to redirect_to dashboard_path
     follow_redirect!
-    expect(response.body).to include 'Prato não foi encontrado'
+    expect(response.body).to include 'Item não foi encontrado'
   end
 end

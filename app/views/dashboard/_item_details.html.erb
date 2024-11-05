@@ -1,0 +1,16 @@
+<div class="flex gap-5 items-center">
+    <% if item.photo.present? %>
+        <%= image_tag item.photo,width: 60, height: 60,  class: ''%>
+    <% end %>
+    <div>
+        <h3 class="font-medium"><%= item.name %></h3>
+        <p class="text-sm"><%= item.description %></p>
+        <div>
+            <% item.caracteristics.each do |caracteristic|%>
+                <p>#<%= caracteristic.name %></p>
+            <% end %>
+        </div>
+    </div>
+
+    <p><%= item.is_active ? "Ativo" : "Desativado"%></p>
+</div>

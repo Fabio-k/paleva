@@ -11,7 +11,7 @@ describe 'user see beverage details' do
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
     login_as admin
-    get beverage_path(beverage.id)
+    get item_path(beverage.id)
     expect(response).to redirect_to dashboard_path
     follow_redirect!
     expect(response.body).to include('Bebida não encontrada')

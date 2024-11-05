@@ -39,9 +39,9 @@ describe 'admin view beverage details' do
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
     login_as admin
-    visit beverage_path(beverage.id)
+    visit item_path(beverage.id)
 
-    expect(page).to have_content 'Bebida não encontrada'
+    expect(page).to have_content 'Item não foi encontrado'
     expect(page).not_to have_content 'Suco de melancia'
   end
 end

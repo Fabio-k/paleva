@@ -1,2 +1,13 @@
 <h1>Criar Porção</h1>
-<%= render 'form', dish: @dish, btn_message: 'Criar Porção'%>
+<%= form_with url: item_portions_path(item_id: @item), method: :post do |f|%>
+    <div>
+        <p><%= f.label :description, 'Descrição'%></p>
+        <%= f.text_field :description %>
+    </div>
+    <div>
+        <p><%= f.label :price, 'Preço ex (1250 = 12,50)'%></p>
+        <%= f.number_field :price%>
+    </div>
+
+    <%= f.submit "Criar Porção"%>
+<% end %>

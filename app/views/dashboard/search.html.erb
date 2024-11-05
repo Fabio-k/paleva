@@ -1,17 +1,12 @@
 <h1 class="text-2xl mb-3">Resultados da pesquisa</h1>
 
 <div class="flex flex-col gap-3">
-<% if @beverages.empty? && @dishes.empty? %>
+<% if @items.empty? %>
     <p>Nenhum item com nome ou descrição com '<%=@query%>' encontrado</p>
 <% end %>
-<% @beverages.each do |beverage| %>
-    <%= link_to beverage_path(beverage.id) do%>
-        <%= render 'card', item: beverage%>
-    <% end %>
-<% end %>
-<% @dishes.each do |dish|%>
-    <%= link_to dish_path(dish.id) do %>
-        <%= render 'card', item: dish%>
+<% @items.each do |item| %>
+    <%= link_to item_path(item.id) do%>
+        <%= render 'card', item: item%>
     <% end %>
 <% end %>
 
