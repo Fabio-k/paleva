@@ -2,6 +2,7 @@ class Restaurant < ApplicationRecord
   belongs_to :admin
   has_many :business_hours
   has_many :items
+  has_many :menus
   
   validates :brand_name, :corporate_name, :registration_number, :street, :address_number, :city, :state, :phone_number, :email, presence: true
   validates :phone_number, length: {in: 10..11}

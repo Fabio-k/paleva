@@ -5,5 +5,7 @@ class Item < ApplicationRecord
   has_many :portions
   has_many :item_caracteristics
   has_many :caracteristics, through: :item_caracteristics
+  has_many :menu_items
+  has_many :menus, through: :menu_items
   validates :name, :description, presence: true
 end
