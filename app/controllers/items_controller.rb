@@ -8,13 +8,13 @@ class ItemsController < ApplicationController
 
   def edit
     @caracteristic = Caracteristic.new
-    @caracteristics = Caracteristic.all
+    @caracteristics = current_admin.caracteristics
   end
 
   def new
     @item = Item.new
     @caracteristic = Caracteristic.new
-    @caracteristics = Caracteristic.all
+    @caracteristics = current_admin.caracteristics
   end
 
   def create
@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
       redirect_to item_path(@item.id), notice: "#{@item.type} criado com sucesso."
     else
       @caracteristic = Caracteristic.new
-      @caracteristics = Caracteristic.all
+      @caracteristics = current_admin.caracteristics
       render :new
     end
   end

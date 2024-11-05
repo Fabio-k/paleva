@@ -9,6 +9,7 @@ class Admin < ApplicationRecord
   validate :valid_cpf
 
   has_one :restaurant
+  has_many :caracteristics
 
   private
 

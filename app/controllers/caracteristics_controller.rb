@@ -1,6 +1,7 @@
 class CaracteristicsController < ApplicationController
   def create
     caracteristic = Caracteristic.new(caracteristic_params)
+    caracteristic.admin = current_admin
     if caracteristic.save
       redirect_to new_item_path
     end
