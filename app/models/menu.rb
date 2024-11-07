@@ -5,6 +5,10 @@ class Menu < ApplicationRecord
   validates :name, presence: true 
   validate :menu_should_be_unique_for_restaurant, on: [:create, :update]
 
+  def valid_items
+    self.items.where(is_active: true, is_removed: false)
+  end
+
   private
 
   def menu_should_be_unique_for_restaurant 

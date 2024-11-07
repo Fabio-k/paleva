@@ -1,19 +1,20 @@
 class MenusController < ApplicationController
   before_action :authenticate_admin!
+  before_action :set_restaurant
 
   def index 
-    restaurant = current_admin.restaurant
     @menu = Menu.new
-    @menus = restaurant.menus
+    @menus = @restaurant.menus
   end
 
   def create
-    restaurant = current_admin.restaurant
     @menu = Menu.new(menu_params)
-    @menu.restaurant = restaurant
+    @menu.restaurant = @restaurant
+
     unless @menu.save
-      @menus = restaurant.menus
+      @menus = @restaurant.menus
       flash.now[:alert] = "Erro no cadastro do cardápio" 
+
       return render :index, status: :unprocessable_entity
     end
     redirect_to edit_menu_path(@menu.id)
@@ -21,28 +22,30 @@ class MenusController < ApplicationController
   end
 
   def edit
-    restaurant = current_admin.restaurant
-    @items = restaurant.items.where(is_active: true, is_removed: false)
-    @menu = restaurant.menus.find(params[:id])
+    @items = @restaurant.valid_items
+    @menu = @restaurant.menus.find(params[:id])
   end
 
   def update 
     @menu = Menu.find(params[:id])
-    restaurant = current_admin.restaurant
-    items = restaurant.items
     item_ids = params[:menu][:items].reject!(&:empty?)
-    valid_items = items.where(id: item_ids, is_active: true, is_removed: false)
+    valid_items = @restaurant.valid_items.where(id: item_ids)
     name = params[:menu][:name]
-    if @menu.update(name: name, items: valid_items)
-      redirect_to menus_path
-    else
-      @items = restaurant.items.where(is_active: true, is_removed: false)
+
+    unless @menu.update(name: name, items: valid_items)
+      @items = @restaurant.valid_items
       flash.now[:alert] =  'Erro ao tentar atualizar menu'
-      render :edit 
+      return render :edit  
     end
+
+    redirect_to menus_path
   end
 
   private 
+
+  def set_restaurant
+    @restaurant = current_admin.restaurant
+  end
 
   def menu_params
     params.require(:menu).permit(:name)

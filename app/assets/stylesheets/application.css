@@ -19,3 +19,11 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
 }
+
+.menu_items {
+  display: none;
+}
+
+.menu_items.active {
+  display: block;
+}

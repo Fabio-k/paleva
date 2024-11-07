@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["typeSelect", "alcoholicField"];
-
   connect() {
     this.itemTypeSelect = document.getElementById("item_type_select");
     this.alcoholicField = document.getElementById("alcoholic_field");

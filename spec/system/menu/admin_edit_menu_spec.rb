@@ -9,7 +9,7 @@ describe 'admin can edit a menu' do
 
     login_as admin
     visit '/'
-    click_on 'Editar cardápio'
+    click_on 'Editar Cardápio'
     fill_in 'Nome', with: 'Adicionais'
     check 'Whopper Duplo'
     click_on 'Salvar alterações'

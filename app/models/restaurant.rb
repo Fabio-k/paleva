@@ -12,6 +12,10 @@ class Restaurant < ApplicationRecord
 
   before_validation :generate_code, on: :create
 
+  def valid_items
+    self.items.where(is_active: true, is_removed: false)
+  end
+
   private
 
   def generate_code

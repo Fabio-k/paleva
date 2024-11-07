@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if current_admin.restaurant
-      dashboard_path 
+      menus_path
     else
       new_restaurant_path
     end
