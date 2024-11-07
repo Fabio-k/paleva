@@ -22,18 +22,18 @@ class MenusController < ApplicationController
   end
 
   def edit
-    @items = @restaurant.valid_items
+    @items = @restaurant.items.valid
     @menu = @restaurant.menus.find(params[:id])
   end
 
   def update 
     @menu = Menu.find(params[:id])
     item_ids = params[:menu][:items].reject!(&:empty?)
-    valid_items = @restaurant.valid_items.where(id: item_ids)
+    valid_items = @restaurant.items.valid.where(id: item_ids)
     name = params[:menu][:name]
 
     unless @menu.update(name: name, items: valid_items)
-      @items = @restaurant.valid_items
+      @items = @restaurant.items.valid
       flash.now[:alert] =  'Erro ao tentar atualizar menu'
       return render :edit  
     end

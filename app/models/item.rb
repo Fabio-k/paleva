@@ -8,4 +8,6 @@ class Item < ApplicationRecord
   has_many :menu_items
   has_many :menus, through: :menu_items
   validates :name, :description, presence: true
+
+  scope :valid, -> {where(is_active: true, is_removed: false)} 
 end

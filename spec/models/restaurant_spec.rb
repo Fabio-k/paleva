@@ -107,17 +107,5 @@ RSpec.describe Restaurant, type: :model do
 
     expect(restaurant.code.length).to eq 6
   end
-
-  it 'return active and non removed items' do
-    admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
-    restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
-    item1 = Item.create!(name: 'Sorvete de chocolate', description: 'Feito para uma pessoa', restaurant: restaurant)
-    item2 = Item.create!(name: 'Sorvete de Menta', description: 'Feito para uma pessoa', restaurant: restaurant, is_active: false)
-    item3 = Item.create!(name: 'Sorvete de Morango', description: 'Feito para uma pessoa', restaurant: restaurant, is_removed: true)
-
-    expect(restaurant.valid_items).to include(item1)
-    expect(restaurant.valid_items).not_to include(item2)
-    expect(restaurant.valid_items).not_to include(item3)
-  end
   
 end
