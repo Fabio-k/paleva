@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      order:
+        one: Pedido
+        other: Pedidos
+    attributes:
+      order:
+        client_name: Nome do cliente
+        phone_number: Numero de telefone
+        email: E-mail
+        cpf: CPF
+        code: Código
