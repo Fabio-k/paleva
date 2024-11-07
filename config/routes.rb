@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      root :to => 'dashboard#index', as: :authenticated_root
+      root :to => "menus#index", as: :authenticated_root
     end
     unauthenticated :user do
       root :to => 'devise/registrations#new', as: :unauthenticated_root
@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   get 'search', to: 'dashboard#search', as: 'search_item'
   resources :caracteristics, only: [:new, :create]
+  resources :menus, only: [:index, :create, :edit, :update] 
 
 end

@@ -47,7 +47,7 @@
 
         <div class="field">
             <%= f.label :caracteristics, 'Características' %>
-            <%= f.collection_check_boxes :caracteristics, @caracteristics, :id, :name %>
+            <%= f.collection_check_boxes :caracteristics, @caracteristics, :id, :name, {checked: item.caracteristics.map(&:to_param)}%>
         </div>
     
     <%= f.submit btn_message, class: 'rounded-xl text-white font-medium bg-orange-500 px-4 py-2 cursor-pointer'%>

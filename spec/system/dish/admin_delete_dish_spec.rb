@@ -8,6 +8,9 @@ describe 'user delete dish' do
 
     login_as admin
     visit "/"
+    within 'nav' do
+      click_on 'itens'
+    end
     click_on 'Remover'
     
     expect(page).not_to have_content 'lasanha'

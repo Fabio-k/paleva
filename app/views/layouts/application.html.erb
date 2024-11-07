@@ -35,7 +35,8 @@
             <%= f.submit 'Pesquisar'%>
           <% end %>
 
-          <%= link_to 'Cardápio', dashboard_path, class: ''%>
+          <%= link_to 'Cardápio', menus_path, class: ''%>
+          <%= link_to 'itens', dashboard_path, class: ''%>
         </nav>
       </section>
       
@@ -48,7 +49,9 @@
     <main class="container ml-64 mx-auto mt-10 px-6">
       <div>
         <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+        <% if alert.present?%>
+          <p class="alert"><%= alert %> <%= link_to 'fechar', request.path%></p>
+        <% end %>
       </div>
       <%= yield %>
     </main>

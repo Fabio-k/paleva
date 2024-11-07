@@ -10,6 +10,9 @@ describe 'admin can edit portion' do
 
     login_as admin
     visit '/'
+    within 'nav' do
+      click_on 'itens'
+    end
     click_on 'lasanha'
     within 'section#portion' do
       click_on 'Editar'
@@ -32,11 +35,7 @@ describe 'admin can edit portion' do
     PortionPrice.create!(portion: portion, price: 3240)
 
     login_as admin
-    visit '/'
-    click_on 'lasanha'
-    within 'section#portion' do
-      click_on 'Editar'
-    end
+    visit edit_portion_path(portion.id)
     fill_in 'Descrição', with: ''
     fill_in 'Preço', with: ''
     click_on 'Salvar alterações'

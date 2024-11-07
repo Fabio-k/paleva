@@ -7,6 +7,9 @@ describe 'admin register a caracteristic' do
 
     login_as admin
     visit '/'
+    within 'nav' do
+      click_on 'itens'
+    end
     within 'section#menu_Item' do
       click_on 'Adicionar Item'
     end

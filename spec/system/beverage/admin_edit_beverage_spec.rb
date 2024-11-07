@@ -8,6 +8,9 @@ describe 'admin edit a beverage' do
 
     login_as admin
     visit "/"
+    within 'nav' do
+      click_on 'itens'
+    end
     click_on 'Editar'
     within 'div#item_name' do
       fill_in 'Nome', with: 'Suco de maracuja'
@@ -20,11 +23,10 @@ describe 'admin edit a beverage' do
   it 'with fail' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
-    Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
+    item = Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
     login_as admin
-    visit "/"
-    click_on 'Editar'
+    visit edit_item_path(item.id)
     within 'div#item_name' do
       fill_in 'Nome', with: ''
     end

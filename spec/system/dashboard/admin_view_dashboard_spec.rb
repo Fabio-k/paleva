@@ -37,6 +37,9 @@ describe 'admin visit dashboard' do
 
     login_as admin
     visit "/"
+    within 'nav' do
+      click_on 'itens'
+    end
     expect(page).to have_content 'lasanha'
     expect(page).to have_content 'Ativo'
     expect(page).not_to have_content 'feijoada'

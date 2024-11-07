@@ -1,0 +1,31 @@
+<h1 class="text-2xl">Editar cardápio</h1>
+<%= form_with model: @menu do |f|%>
+    <div>
+        <p><%= f.label :name%></p>
+        <%= f.text_field :name%>
+    </div>
+    <%= f.submit 'Salvar alterações'%>
+    <section class="flex flex-col gap-10 mb-10">
+        <h2 class="text-xl">Itens do cardápio</h2>
+        <%= f.collection_check_boxes :items, @items, :id, :name, {checked: @menu.items.map(&:to_param)}  do |i|%>
+            <div class="flex gap-5">
+                <%= i.label(class: 'flex gap-5') do%>
+                    <% if i.object.photo.present?%>
+                        <div>
+                            <%= image_tag i.object.photo, width:200, height: 200%>
+                        </div>
+                    <% end %>
+                    <section>
+                        <p><%= i.object.name %></p>
+                        <p><%= i.object.description%></p>
+                    </section>
+                <% end %>
+                <%= i.check_box%>
+            </div>
+        <% end %>
+    </section>
+    
+<% end %>
+
+
+    

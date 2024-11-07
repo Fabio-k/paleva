@@ -5,5 +5,6 @@ class RemoveAttributesFromBeverages < ActiveRecord::Migration[7.2]
     remove_column :beverages, :calories, :string
     remove_column :beverages, :restaurant_id, :integer
     remove_column :beverages, :is_active, :boolean
+    remove_column :beverages, :is_alcoholic, :boolean
   end
 end

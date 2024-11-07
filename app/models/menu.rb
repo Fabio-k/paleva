@@ -3,7 +3,7 @@ class Menu < ApplicationRecord
   has_many :menu_items
   has_many :items, through: :menu_items
   validates :name, presence: true 
-  validate :menu_should_be_unique_for_restaurant
+  validate :menu_should_be_unique_for_restaurant, on: [:create, :update]
 
   private
 
@@ -12,7 +12,7 @@ class Menu < ApplicationRecord
     menus = self.restaurant.menus
     return unless name.present?
 
-    if menus.find_by(name: name).present? 
+    if menus.where(name: name).where.not(id: self.id).exists?
       errors.add :name, 'já existe'
     end
   end

@@ -22,6 +22,9 @@ describe 'admin register a dish' do
 
     login_as admin
     visit "/"
+    within 'nav' do
+      click_on 'itens'
+    end
     within 'section#menu_Item' do
       click_on 'Adicionar Item'
     end
@@ -43,10 +46,7 @@ describe 'admin register a dish' do
     Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
 
     login_as admin
-    visit "/"
-    within 'section#menu_Item' do
-      click_on 'Adicionar Item'
-    end
+    visit new_item_path
     within 'div#item_name' do
        fill_in 'Nome', with: ''
     end
