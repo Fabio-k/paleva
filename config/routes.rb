@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   get 'search', to: 'dashboard#search', as: 'search_item'
   resources :caracteristics, only: [:new, :create]
   resources :menus, only: [:index, :create, :edit, :update] 
+  resources :orders, only: [:create]
 
 end

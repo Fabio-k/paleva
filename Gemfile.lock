@@ -93,6 +93,9 @@ GEM
     connection_pool (2.4.1)
     cpf_cnpj (0.5.0)
     crass (1.0.6)
+    cuprite (0.15.1)
+      capybara (~> 3.0)
+      ferrum (~> 0.15.0)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -106,6 +109,11 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.13.0)
+    ferrum (0.15)
+      addressable (~> 2.5)
+      concurrent-ruby (~> 1.1)
+      webrick (~> 1.7)
+      websocket-driver (~> 0.7)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -300,6 +308,7 @@ DEPENDENCIES
   brakeman
   capybara
   cpf_cnpj
+  cuprite
   debug
   devise (~> 4.9)
   importmap-rails

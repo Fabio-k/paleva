@@ -5,6 +5,8 @@ class MenusController < ApplicationController
   def index 
     @menu = Menu.new
     @menus = @restaurant.menus
+    
+    @order = Order.new
   end
 
   def create
@@ -12,6 +14,7 @@ class MenusController < ApplicationController
     @menu.restaurant = @restaurant
 
     unless @menu.save
+      @order = Order.new
       @menus = @restaurant.menus
       flash.now[:alert] = "Erro no cadastro do cardápio" 
 

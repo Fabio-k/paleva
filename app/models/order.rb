@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :restaurant
-  has_many :order_items
-  has_many :items, through: :order_items
+  has_many :order_portions
 
   validates :client_name, :cpf, presence: true
 
@@ -11,6 +10,10 @@ class Order < ApplicationRecord
   before_validation :generate_code, on: :create
 
   enum :status, {:wainting_confirmation=>0, :in_progress=>2, :canceled=>4, :ready=>6, :delivered=>8}
+
+  def calculate_total
+   self.total_price = self.order_portions.includes(:portion).sum {|order_portion| order_portion.portion.price}
+  end
 
   private
 
