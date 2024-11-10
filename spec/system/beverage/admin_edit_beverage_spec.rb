@@ -6,7 +6,7 @@ describe 'admin edit a beverage' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     within 'nav' do
       click_on 'itens'
@@ -25,7 +25,7 @@ describe 'admin edit a beverage' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     item = Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit edit_item_path(item.id)
     within 'div#item_name' do
       fill_in 'Nome', with: ''
@@ -45,7 +45,7 @@ describe 'admin edit a beverage' do
     other_restaurant = Restaurant.create!(brand_name: 'Mario Restaurant', corporate_name: 'Mario Restaurant LTDA', registration_number: CNPJ.generate, street: 'hokaido street', address_number: '133', city: 'Tokyo', state: 'São Paulo', phone_number: '1197894549', email: 'mario@email.com', admin: other_admin)
     beverage = Beverage.create!(name: 'Mushrom juice', description: 'a very delicious juice', is_alcoholic: true, restaurant: other_restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit edit_item_path(beverage.id)
 
     expect(current_path).to eq dashboard_path

@@ -13,6 +13,10 @@ class Admin < ApplicationRecord
 
   private
 
+  def cpf_uniqueness_across_models
+    
+  end
+
   def valid_cpf
     if self.cpf.present? && !CPF.valid?(self.cpf)
       errors.add(:cpf, 'deve ser válido')

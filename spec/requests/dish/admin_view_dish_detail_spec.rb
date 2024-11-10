@@ -10,7 +10,7 @@ describe 'admin update dish' do
     other_restaurant = Restaurant.create!(brand_name: 'Sr. Marmita', corporate_name: 'Sr. Marmita LTDA', registration_number: CNPJ.generate, street: 'Avenida das bandeiras', address_number: '334', city: 'Poa', state: 'São Paulo', phone_number: '1177897548', email: 'srmarmita@email.com', admin: other_admin)
     dish = Dish.create!(name: 'feijoada', description: 'feijoada feita no forno à lenha', restaurant: other_restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     get item_path(dish.id)
     expect(response).to redirect_to dashboard_path
     follow_redirect!

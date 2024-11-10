@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_10_183220) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_10_215925) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -81,6 +81,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_183220) do
   create_table "dishes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "employee_pre_registrations", force: :cascade do |t|
+    t.string "cpf"
+    t.string "email"
+    t.boolean "is_used", default: false
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_employee_pre_registrations_on_restaurant_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "cpf", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_employees_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
   create_table "item_caracteristics", force: :cascade do |t|
@@ -187,6 +211,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_183220) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "business_hours", "restaurants"
   add_foreign_key "caracteristics", "admins"
+  add_foreign_key "employee_pre_registrations", "restaurants"
   add_foreign_key "item_caracteristics", "caracteristics"
   add_foreign_key "item_caracteristics", "items"
   add_foreign_key "items", "restaurants"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :employees
   devise_for :admins
 
   devise_scope :admin do
@@ -22,5 +23,6 @@ Rails.application.routes.draw do
   resources :caracteristics, only: [:new, :create]
   resources :menus, only: [:index, :create, :edit, :update] 
   resources :orders, only: [:create]
+  resources :employee_pre_registrations, only: [:index, :create]
 
 end

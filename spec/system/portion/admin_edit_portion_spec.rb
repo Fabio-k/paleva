@@ -8,7 +8,7 @@ describe 'admin can edit portion' do
     portion = Portion.create!(item: dish, description: 'Lasanha para uma pessoa', price: 3240)
     PortionPrice.create!(portion: portion, price: 3240)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit '/'
     within 'nav' do
       click_on 'itens'
@@ -34,7 +34,7 @@ describe 'admin can edit portion' do
     portion = Portion.create!(item: dish, description: 'Lasanha para uma pessoa', price: 3240)
     PortionPrice.create!(portion: portion, price: 3240)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit edit_portion_path(portion.id)
     fill_in 'Descrição', with: ''
     fill_in 'Preço', with: ''

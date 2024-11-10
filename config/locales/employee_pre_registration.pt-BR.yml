@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      employee_pre_registration: Pré cadastro de funcionário
+    attributes:
+      employee_pre_registration:
+        cpf: CPF
+        email: E-mail

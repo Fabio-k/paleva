@@ -15,7 +15,7 @@ describe 'admin edit a dish' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     within 'nav' do
       click_on 'itens'
@@ -35,7 +35,7 @@ describe 'admin edit a dish' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
     item = Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit edit_item_path(item.id)
     within 'div#item_name' do
        fill_in 'Nome', with: ''

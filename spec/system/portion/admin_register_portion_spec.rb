@@ -6,7 +6,7 @@ describe 'user register a portion' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit '/' 
     within 'nav' do
       click_on 'itens'
@@ -25,7 +25,7 @@ describe 'user register a portion' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
     item = Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit new_item_portion_path(item.id)
     fill_in 'Descrição', with: 'Lasanha de queijo'
     fill_in 'Preço', with: ''

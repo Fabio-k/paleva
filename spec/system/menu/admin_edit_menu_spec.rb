@@ -7,7 +7,7 @@ describe 'admin can edit a menu' do
     Dish.create!(name: 'Whopper Duplo', description: 'Pão com gergelim, dois suculentos hambúrgueres de pura carne bovina, duas fatias de cheddar, quatro fatias de picles, alface, tomate, cebola, maionese e ketchup.', calories: 850, restaurant: restaurant)
     Menu.create!(name: 'Lanches', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit '/'
     click_on 'Editar Cardápio'
     fill_in 'Nome', with: 'Adicionais'
@@ -25,7 +25,7 @@ describe 'admin can edit a menu' do
     Dish.create!(name: 'Whopper Duplo', description: 'Pão com gergelim, dois suculentos hambúrgueres de pura carne bovina, duas fatias de cheddar, quatro fatias de picles, alface, tomate, cebola, maionese e ketchup.', calories: 850, restaurant: restaurant)
     menu = Menu.create!(name: 'Lanches', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit edit_menu_path(menu.id)
     fill_in 'Nome', with: ''
     click_on 'Salvar alterações'

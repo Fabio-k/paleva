@@ -9,7 +9,7 @@ describe 'user register a new order', js: true do
     PortionPrice.create!(portion: portion, price: 3240)
     Menu.create!(name: 'Lanches', restaurant: restaurant, items: [item])
 
-    login_as admin
+    login_as admin, scope: :admin
     visit '/'
     find(".menu_dropdown").click
     click_on 'Adicionar Porção'
@@ -28,7 +28,7 @@ describe 'user register a new order', js: true do
     item = Dish.create!(name: 'Lasanha', description: 'dupla camada de queijo', calories: 850, restaurant: restaurant)
     Menu.create!(name: 'Lanches', restaurant: restaurant, items: [item])
 
-    login_as admin
+    login_as admin, scope: :admin
     visit '/'
     fill_in 'order[client_name]', with: 'Garfield'
     fill_in 'CPF', with: CPF.generate

@@ -4,7 +4,7 @@ describe 'admin register restaurant' do
   it 'with success' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
 
-    login_as admin
+    login_as admin, scope: :admin
     visit new_restaurant_path
     fill_in 'Nome fantasia', with: 'Djapa'
     fill_in 'Razão social', with: 'Djapa'

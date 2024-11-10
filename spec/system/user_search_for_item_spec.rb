@@ -9,7 +9,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg'), restaurant: restaurant)
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'com'
     click_on 'Pesquisar'
@@ -31,7 +31,7 @@ describe 'user search for dish or beverage' do
     Beverage.create!(name: 'Suco de Limão', description: 'Feito com polpa de limão na hora', is_alcoholic: false, photo: Rails.root.join('spec', 'support', 'sucodelimao.jpeg') ,restaurant: restaurant)
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'zark'
     click_on 'Pesquisar'
@@ -48,7 +48,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', photo: Rails.root.join('spec', 'support', 'lasanhadequeijo.jpeg'), restaurant: restaurant)
     Dish.create!(name: 'hamburger', description: 'vegetariano', restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'Suco'
     click_on 'Pesquisar'
@@ -68,7 +68,7 @@ describe 'user search for dish or beverage' do
     Dish.create!(name: 'Acarajé', description: 'extra picante', restaurant: other_restaurant)
     Beverage.create!(name: 'Suco de Açai', description: 'com cobertura extra', is_alcoholic: false ,restaurant: other_restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'extra'
     click_on 'Pesquisar'

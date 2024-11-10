@@ -10,7 +10,7 @@ describe 'admin edit a dish' do
     other_restaurant = Restaurant.create!(brand_name: 'Sr. Marmita', corporate_name: 'Sr. Marmita LTDA', registration_number: CNPJ.generate, street: 'Avenida das bandeiras', address_number: '334', city: 'Poa', state: 'São Paulo', phone_number: '1177897548', email: 'srmarmita@email.com', admin: other_admin)
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     patch edit_menu_path(menu.id), params: {dish: {name: 'Sobremesas', items: [beverage.id]}}
     expect(response.body).not_to include('Suco de melancia')
   end

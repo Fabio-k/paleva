@@ -6,7 +6,7 @@ describe 'admin view beverage details' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit "/"
     within 'nav' do
       click_on 'itens'
@@ -24,7 +24,7 @@ describe 'admin view beverage details' do
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burger@email.com', admin: admin)
     item = Beverage.create!(name: 'Suco de Laranja', description: 'Feito com polpa de laranja na hora', is_alcoholic: false, restaurant: restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit item_path(item.id)
     click_on 'Desativar'
 
@@ -40,7 +40,7 @@ describe 'admin view beverage details' do
     other_restaurant = Restaurant.create!(brand_name: 'Sr. Marmita', corporate_name: 'Sr. Marmita LTDA', registration_number: CNPJ.generate, street: 'Avenida das bandeiras', address_number: '334', city: 'Poa', state: 'São Paulo', phone_number: '1177897548', email: 'srmarmita@email.com', admin: other_admin)
     beverage = Beverage.create!(name: 'Suco de melancia', description: 'feito na hora', is_alcoholic: false, restaurant: other_restaurant)
 
-    login_as admin
+    login_as admin, scope: :admin
     visit item_path(beverage.id)
 
     expect(page).to have_content 'Item não foi encontrado'
