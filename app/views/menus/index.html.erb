@@ -3,13 +3,13 @@
     <div class="mr-96">
         <% if current_admin%>
             <section>
-                <h1>Adicionar <%= @menu.model_name.human%></h1>
+                <h1 class="text-xl">Adicionar <%= @menu.model_name.human%></h1>
                 <%= form_with model: @menu do |f|%>
-                    <div>
+                    <div class="flex gap-2 mb-5">
                         <%= f.text_field :name, placeholder: "Nome do #{@menu.model_name.human}", id: 'menu_name_field'%>
+                        <%= f.submit "+", class: 'text-white text-2xl font-medium bg-amber-500 px-4 rounded cursor-pointer'%>
                     </div>
                     
-                    <%= f.submit "Criar #{@menu.model_name.human}"%>
                 <% end %>
             </section>
         <% end %>
@@ -18,10 +18,13 @@
             <% @menus.each do |menu|%> 
                 <div class="menu_container p-10 mb-20 border-2 border-default-200 rounded-md">
                     <section class="flex justify-between items-center">
-                        <h2 class="text-2xl"><%= menu.name%></h2>
-                        <% if current_admin%>
-                            <%= link_to "Editar #{@menu.model_name.human}", edit_menu_path(menu.id)%>
-                        <% end %>
+                        <div class="flex items-center gap-5">
+                            <h2 class="text-2xl"><%= menu.name%></h2>
+                            <% if current_admin%>
+                                <%= link_to "Editar #{@menu.model_name.human}", edit_menu_path(menu.id)%>
+                            <% end %>
+                        </div>
+                        
                         <% if menu.items.valid.present?%>
                             <button class="menu_dropdown" data-menu-target="toggleButton"><%= image_tag 'arrow_down.svg', width: 20, height: 20%></button>
                         <% end %>
@@ -30,43 +33,12 @@
                     <div class="min-h-[2px] bg-gray-200 my-5"></div>
 
                     <section class="menu_items" data-menu-target="menuItem">
-                        <% menu.items.valid.each do |item|%>
-                            <div class="flex gap-5 p-5 items-center">
-                                <div class="flex gap-5 items-center">
-                                    <% if item.photo.present? %>
-                                        <%= image_tag item.photo,width: 60, height: 60,  class: ''%>
-                                    <% end %> 
-                                    <div>
-                                        <section class="flex">
-                                            <h3 class="font-medium mr-6"><%= item.name %></h3>
-                                            <div class="flex gap-3">
-                                                <% item.caracteristics.each do |caracteristic|%>
-                                                    <p>#<%= caracteristic.name %></p>
-                                                <% end %>
-                                            </div>
-                                        </section>
-                                        
-                                        <p class="text-sm"><%= item.description %></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <% item.portions.each do |portion|%>
-                                <div class="mx-20 flex w-1/2 justify-between py-2">
-                                    <p><%= portion.description %></p>
-                                    <p><%= portion.show_price%></p>
-                                    <button data-menu-target="portionButton" data-portion-id="<%= portion.id%>" data-portion-title="<%= portion.item.name%> <%= portion.description%>" data-portion-price="<%= portion.price%>">
-                                        Adicionar Porção
-                                    </button>
-                                </div>
-                            <% end %>
-                         <% end %>
+                        <%= render partial: 'menus/item', collection: menu.items.valid, as: :item%>
                     </section>
-                    
                 </div>
             <% end %>
         </section>
     </div>
-
 
 
     <section class="fixed flex flex-col w-96 h-screen bg-neutral-200 right-0 top-0 p-10" >
@@ -87,7 +59,7 @@
                 <%= f.text_field :phone_number, placeholder: 'Numero de telefone'%>
             </div >
             <div class="mb-10" data-menu-target="orderTotal"></div>
-            <%= f.submit 'Salvar', class: 'rounded-xl border-2 border-amber-500 w-full px-4 py-2 cursor-pointer'%>
+            <%= f.submit 'Salvar', class: 'font-medium rounded-xl border-2 border-amber-500 w-full px-4 py-2 cursor-pointer hover:bg-amber-500 hover:text-white'%>
         <% end %>
         
     </section>

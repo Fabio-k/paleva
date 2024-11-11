@@ -1,4 +1,4 @@
-<h2>Cadastrar funcionário</h2>
+<h2 class="text-2xl">Cadastrar funcionário</h2>
 <%= form_with model: @employee_pre_registration do |f|%>
     <div class="field">
         <%= f.text_field :email, placeholder: 'E-mail'%>
@@ -9,13 +9,31 @@
     <%= f.submit 'Cadastrar'%>
 <% end %>
 
-<h1>funcionário</h1>
+<h1 class="text-xl">funcionários</h1>
 
-    <% @employee_pre_registrations.each do |emp_pre_r|%>
-        <div class="flex gap-5">
-            <p><%= emp_pre_r.cpf%></p>
-            <p><%= emp_pre_r.email%></p>
-            <p><%= emp_pre_r.is_used ? 'Usado' : 'Não usado'%></p>
-        </div>
-    <% end %>
+<table class="border-separate border-spacing-4 table-auto">
+    <thead>
+        <tr>
+            <th>CPF</th>
+            <th>E-mail</th>
+            <th>Status do cadastro</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @employee_pre_registrations.each do |emp_pre_r|%>
+            <tr>
+                <td>
+                    <p><%= emp_pre_r.cpf%></p>
+                </td>
+                <td>
+                    <p><%= emp_pre_r.email%></p>
+                </td>
+                <td>
+                    <p><%= emp_pre_r.is_used ? 'Usado' : 'Não usado'%></p>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
 

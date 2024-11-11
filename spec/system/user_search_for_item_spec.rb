@@ -12,7 +12,7 @@ describe 'user search for dish or beverage' do
     login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'com'
-    click_on 'Pesquisar'
+    find('#search_item').click
 
     expect(page).to have_content 'Resultados da pesquisa'
     expect(page).to have_css 'img[src*="lasanhadequeijo.jpeg"]'
@@ -34,7 +34,7 @@ describe 'user search for dish or beverage' do
     login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'zark'
-    click_on 'Pesquisar'
+    find('#search_item').click
 
     expect(page).to have_content 'Resultados da pesquisa'
     expect(page).to have_content "Nenhum item com nome ou descrição com 'zark' encontrado"
@@ -51,7 +51,7 @@ describe 'user search for dish or beverage' do
     login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'Suco'
-    click_on 'Pesquisar'
+    find('#search_item').click
 
     expect(page).to have_link 'Suco de Limão'
     expect(page).to have_link 'Suco de Laranja'
@@ -71,7 +71,7 @@ describe 'user search for dish or beverage' do
     login_as admin, scope: :admin
     visit "/"
     fill_in 'Pesquisar por item', with: 'extra'
-    click_on 'Pesquisar'
+    find('#search_item').click
 
     expect(page).to have_content 'Resultados da pesquisa'
     expect(page).not_to have_content "Nenhum item com nome ou descrição com 'zark' encontrado"

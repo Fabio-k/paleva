@@ -19,4 +19,11 @@
   .user-link.active {
     @apply text-amber-500;
   }
+
+  .menu-nav {
+    @apply hover:bg-neutral-300 py-2 px-2 mx-2 rounded;
+  }
+  .menu-nav.active {
+    @apply bg-neutral-300;
+  }
 }

@@ -67,13 +67,20 @@ export default class extends Controller {
   }
 
   updateOrderList() {
-    const orders = JSON.parse(localStorage.getItem("orders"));
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
     const orderInputs = this.orderInputsTarget;
     const orderTotal = this.orderTotalTarget;
 
     orderInputs.innerHTML = "";
     orderTotal.innerHTML = "";
     let totalCost = 0;
+
+    if (orders.length == 0) {
+      const message = document.createElement("p");
+      message.textContent = "Nenhuma porção foi adicionada";
+      orderInputs.appendChild(message);
+    }
+
     orders.forEach((order) => {
       totalCost += parseInt(order.price);
       const titleDiv = document.createElement("div");
@@ -117,7 +124,14 @@ export default class extends Controller {
 
     let totalCostString = totalCost.toString();
     const indexToInsertAt = totalCostString.length - 2;
-    let separator = indexToInsertAt > 1 ? "," : "0,";
+    let separator = ",";
+    if (indexToInsertAt < 2) {
+      separator = "0,";
+    }
+    if (indexToInsertAt < 0) {
+      separator = "0,0";
+    }
+
     const formattedPrice =
       totalCostString.slice(0, indexToInsertAt) +
       separator +

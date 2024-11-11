@@ -1,0 +1,21 @@
+<div class="flex gap-5 p-5 items-center">
+    <div class="flex gap-5 items-center">
+        <% if item.photo.present? %>
+            <%= image_tag item.photo,width: 60, height: 60,  class: ''%>
+        <% end %> 
+        <div>
+            <section class="flex">
+                <h3 class="font-medium mr-6"><%= item.name %></h3>
+                <div class="flex gap-3">
+                    <% item.caracteristics.each do |caracteristic|%>
+                        <p>#<%= caracteristic.name %></p>
+                    <% end %>
+                </div>
+            </section>
+            
+            <p class="text-sm"><%= item.description %></p>
+        </div>
+    </div>
+</div>
+<%= render partial: 'menus/portion', collection: item.portions, as: :portion %>
+                         

@@ -10,9 +10,9 @@ describe 'admin create a beverage' do
     within 'nav' do
       click_on 'Itens'
     end
-    within 'section#menu_Item' do
-      click_on 'Adicionar Item'
-    end
+    
+    click_on 'Adicionar Item'
+    
     select 'Bebida', from: 'item_type_select'
     within 'div#item_name' do
       fill_in 'Nome', with: 'Suco de limão'

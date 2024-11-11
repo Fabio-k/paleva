@@ -1,3 +1,22 @@
-<%= render 'item_display', item: Item.new do%>
-    <%= render partial: 'dashboard/item_card', collection: @items, as: :item %>
-<% end %>
+<div class="mb-10">
+    <div class="flex gap-10">
+        <h2 class="text-2xl">Itens</h2>
+        <%= link_to "Adicionar Item", new_item_path, class: 'rounded-xl text-white font-medium bg-amber-500 px-4 py-2'%>
+    </div>
+    <% @items.each do |item|%>
+        <div class="mb-10">
+            <div class="flex gap-5 p-5 items-center">
+                <%= link_to item_path(item.id) do%>
+                    <%= render 'item_details', item: item%>
+                <% end %>
+            
+                <%= link_to 'Editar', edit_item_path(item.id)%>
+                <%= link_to 'Remover', item_path(item.id), data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja remover #{item.name}?"}%>
+
+            </div>
+            <%= render item.portions%>
+            <%= link_to 'Adicionar Porção', new_item_portion_path(item_id: item.id), class: 'w-1/2 mx-20 text-center'%>
+        </div>
+    <% end %>
+</div>
+

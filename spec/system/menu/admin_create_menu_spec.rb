@@ -10,7 +10,7 @@ describe 'admin create a menu' do
     login_as admin, scope: :admin
     visit '/'
     fill_in 'menu_name_field', with: 'Sanduíches Especiais'
-    click_on 'Criar Cardápio'
+    click_on '+'
     check 'Whopper Duplo'
     click_on 'Salvar alterações'
 
@@ -26,8 +26,8 @@ describe 'admin create a menu' do
     
     login_as admin, scope: :admin
     visit menus_path
-    fill_in '', with: 'Sanduíches Especiais'
-    click_on 'Criar Cardápio'
+    fill_in 'menu_name_field', with: ''
+    click_on '+'
 
     expect(page).to have_content 'Erro no cadastro do cardápio'
   end

@@ -25,9 +25,9 @@ describe 'admin register a dish' do
     within 'nav' do
       click_on 'Itens'
     end
-    within 'section#menu_Item' do
-      click_on 'Adicionar Item'
-    end
+  
+    click_on 'Adicionar Item'
+    
     within 'div#item_name' do
        fill_in 'Nome', with: 'Lasanha'
     end

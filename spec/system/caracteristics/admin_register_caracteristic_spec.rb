@@ -10,9 +10,9 @@ describe 'admin register a caracteristic' do
     within 'nav' do
       click_on 'Itens'
     end
-    within 'section#menu_Item' do
-      click_on 'Adicionar Item'
-    end
+    
+    click_on 'Adicionar Item'
+    
     within 'div#caracteristic' do
       fill_in 'Nome', with: 'Picante'
       click_on 'Adicionar característica'
