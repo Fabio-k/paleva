@@ -1,6 +1,6 @@
 class Portion < ApplicationRecord
-  has_many :portion_prices
   belongs_to :item
+  has_many :portion_prices
   validates :description, presence: true
 
   def show_price
