@@ -25,10 +25,7 @@
           <%= link_to dashboard_path do%>
             <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
           <% end %>
-          <div class="mb-2">
-            <h1 class="text-lg"><%= current_user.restaurant.brand_name %></h1>
-          </div>
-
+      
           <% if current_admin%>
             <%= form_with url: search_item_path, method: :get do |f|%>
               <div class="flex gap-1">
@@ -44,6 +41,7 @@
         </div>
 
         <nav class="flex flex-col gap-1">
+          <%= link_to current_user.restaurant.brand_name, restaurant_path(current_user.restaurant.id), class: "menu-nav #{"active" if controller_name == "restaurants" && action_name == "show"}" %>
           <%= link_to 'Cardápio', menus_path, class: "menu-nav #{"active" if controller_name == "menus" && action_name == "index"}"%>
           <% if current_admin%>
             <%= link_to 'Itens', dashboard_path, class: "menu-nav #{"active" if controller_name == "dashboard" && action_name == "index"}"%>

@@ -1,7 +1,12 @@
 class  RestaurantsController < ApplicationController
-  before_action :authenticate_admin!
-  before_action :redirect_if_admin_has_restaurant
-  layout 'devise'
+  before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_admin!, only: [:new, :create]
+  before_action :redirect_if_admin_has_restaurant, only: [:new, :create]
+  layout :determine_layout
+
+  def show
+    @restaurant = current_user.restaurant
+  end
   def new
     if current_admin.restaurant
       redirect_to dashboard_path
@@ -31,4 +36,12 @@ class  RestaurantsController < ApplicationController
     current_admin.restaurant.present?
   end
 
+  def determine_layout
+    case action_name
+    when 'show'
+      'application'
+    else
+      'devise'
+    end
+  end
 end

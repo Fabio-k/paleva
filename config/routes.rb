@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :restaurants, only: [:new, :create]
+  resources :restaurants, only: [:new, :create, :show]
   resources :business_hours, only: [:index, :new, :create, :edit, :update]
   resources :items do
     patch 'change_status', on: :member
