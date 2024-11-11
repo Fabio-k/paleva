@@ -1,4 +1,5 @@
 class EmployeePreRegistrationsController < ApplicationController
+  before_action :authenticate_admin!
   def index
     @employee_pre_registration = EmployeePreRegistration.new
     @employee_pre_registrations = current_admin.restaurant.employee_pre_registrations

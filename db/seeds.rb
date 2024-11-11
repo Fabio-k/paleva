@@ -91,7 +91,7 @@ items.each do |item|
   when 'Kaiser Bock'
     item.photo.attach(io: File.open(Rails.root.join('app/assets/images/kaiserbock.jpeg')), filename: 'kaiserbock.jpeg')
   end
-  sleep(2) # evitar deadlock
+  sleep(0.1) # evitar deadlock
 end
 
 ["Salgados", "Bebidas", "Sobremesas"].each do |name|

@@ -18,26 +18,26 @@ Palevá é um sistema de gerenciamento de pedidos para restaurantes do tipo Take
 - Clone o repositório
 
 ```bash
-    git clone https://github.com/Fabio-k/paleva.git
+git clone https://github.com/Fabio-k/paleva.git
 ```
 
 - Abra o diretório pelo terminal
 
 ```bash
-    cd paleva
+cd paleva
 ```
 
 - Crie e popule o banco de dados
 
 ```bash
-    rails db:migrate
-    rails db:seed
+rails db:migrate
+rails db:seed
 ```
 
 - Execute a aplicação
 
 ```bash
-    bin/dev
+bin/dev
 ```
 
 - acesse a aplicação no link http://localhost:3000/
