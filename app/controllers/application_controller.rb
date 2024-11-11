@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :check_admin
   layout :layout_by_resource
+  devise_group :user, contains: [:employee, :admin]
 
   protected
 
@@ -34,11 +35,13 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(resource)
-    new_restaurant_path
+    if resource == :admin
+      new_restaurant_path
+    end
   end
 
   def after_sign_in_path_for(resource)
-    if current_admin.restaurant
+    if current_user.restaurant
       menus_path
     else
       new_restaurant_path

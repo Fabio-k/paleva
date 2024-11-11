@@ -25,24 +25,28 @@
           <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
         <% end %>
         <div class="mb-2">
-            <h1 class="text-lg"><%= current_admin.restaurant.brand_name %></h1>
+            <h1 class="text-lg"><%= current_user.restaurant.brand_name %></h1>
           </div>
         <nav class="flex flex-col gap-3">
 
-          <%= form_with url: search_item_path, method: :get do |f|%>
-            <%= f.label :query, 'Pesquisar por item'%>
-            <%= f.text_field :query, plachholder: 'prato, bebida', class: 'rounded'%>
-            <%= f.submit 'Pesquisar'%>
+          <% if current_admin%>
+            <%= form_with url: search_item_path, method: :get do |f|%>
+              <%= f.label :query, 'Pesquisar por item'%>
+              <%= f.text_field :query, plachholder: 'prato, bebida', class: 'rounded'%>
+              <%= f.submit 'Pesquisar'%>
+            <% end %>
           <% end %>
 
           <%= link_to 'Cardápio', menus_path, class: ''%>
-          <%= link_to 'itens', dashboard_path, class: ''%>
-          <%= link_to 'Funcionários', employee_pre_registrations_path%>
+          <% if current_admin%>
+            <%= link_to 'Itens', dashboard_path, class: ''%>
+            <%= link_to 'Funcionários', employee_pre_registrations_path%>
+          <% end %>
         </nav>
       </section>
       
        <div class="flex bg-neutral-300 rounded-xl justify-between px-4 py-3">
-          <p><%=current_admin.name%></p>
+          <p><%=current_user.name%></p>
           <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
         </div>
     </aside>

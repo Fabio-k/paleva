@@ -9,8 +9,11 @@ class EmployeePreRegistrationsController < ApplicationController
     @employee_pre_registration = EmployeePreRegistration.new(employee_pre_registration_params)
     @employee_pre_registration.restaurant = current_admin.restaurant
 
-    if @employee_pre_registration.save
-      redirect_to employee_pre_registrations_path, notice: 'Funcionário cadastrado com sucesso'
+    unless @employee_pre_registration.save
+      @employee_pre_registrations = current_admin.restaurant.employee_pre_registrations
+      flash.now[:alert] = 'Erro ao tentar cadastrar funcionário'
+      return render :index
     end
+    redirect_to employee_pre_registrations_path, notice: 'Funcionário cadastrado com sucesso'
   end
 end

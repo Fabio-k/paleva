@@ -35,5 +35,17 @@ RSpec.describe Admin, type: :model do
 
       expect(other_admin.valid?).to eq false
     end
+
+    it 'false when there is already a user with email or cpf' do
+      admin = Admin.create!(cpf: CPF.generate, name: 'Roberto', last_name: 'Carlos', email: 'Roberto@email.com', password: 'senha123senha')
+      restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
+      cpf = CPF.generate
+      EmployeePreRegistration.create!(cpf: cpf, email: "carlos@email.com", restaurant: restaurant)
+      Employee.create!(name: 'Carlos', email: 'carlos@email.com', password: 'senha123senha', cpf: cpf)
+      other_admin = Admin.new(cpf: cpf, name: 'Fabio', last_name: 'Guti', email: 'fabio@email.com', password: 'senha1234senha')
+
+      expect(other_admin.valid?).to eq false
+    end
+
   end
 end

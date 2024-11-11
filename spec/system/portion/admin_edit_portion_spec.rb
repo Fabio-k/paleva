@@ -11,7 +11,7 @@ describe 'admin can edit portion' do
     login_as admin, scope: :admin
     visit '/'
     within 'nav' do
-      click_on 'itens'
+      click_on 'Itens'
     end
     click_on 'lasanha'
     within 'section#portion' do

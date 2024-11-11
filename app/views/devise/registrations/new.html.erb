@@ -8,7 +8,11 @@
     </section>
 
     <section class="bg-white flex flex-col w-2/5 max-w-[460px] py-10 px-10 shadow-xl rounded">
-        <h1 class="text-2xl font-medium mb-2">Cadastre seu Restaurante</h1>
+        <h1 class="text-2xl font-medium mb-2">Criar conta</h1>
+        <div class="flex gap-5">
+            <%= link_to 'dono de restaurante', new_admin_registration_path, class: "user-link #{"active" if resource_name == :admin}"%>
+            <%= link_to 'funcionário', new_employee_registration_path, class: "user-link #{"active" if resource_name == :employee}"%>
+        </div>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -22,10 +26,12 @@
             <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
             </div>
 
-            <div class="field">
-            <%= f.label :last_name %><br />
-            <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
-            </div>
+            <% if resource_name == :admin%>
+                <div class="field">
+                    <%= f.label :last_name %><br />
+                    <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
+                </div>
+            <% end %>
 
             <div class="field">
             <%= f.label :email %><br />

@@ -9,7 +9,7 @@ describe 'admin view beverage details' do
     login_as admin, scope: :admin
     visit "/"
     within 'nav' do
-      click_on 'itens'
+      click_on 'Itens'
     end
     click_on 'Suco de Laranja'
 

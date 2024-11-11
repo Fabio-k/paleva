@@ -10,6 +10,15 @@ Rails.application.routes.draw do
       root :to => 'devise/registrations#new', as: :unauthenticated_root
     end
   end
+
+  devise_scope :employee do
+    authenticated :employee do
+      root to: "menus#index", as: :authenticated_employee_root
+    end
+    unauthenticated :employee do
+      root to: 'devise/registrations#new', as: :unauthenticated_employee_root
+    end
+  end
   
   resources :restaurants, only: [:new, :create]
   resources :business_hours, only: [:index, :new, :create, :edit, :update]

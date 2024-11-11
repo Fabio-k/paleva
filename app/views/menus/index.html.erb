@@ -1,23 +1,27 @@
 
 <div data-controller = "menu">
     <div class="mr-96">
-        <section>
-            <h1>Adicionar <%= @menu.model_name.human%></h1>
-            <%= form_with model: @menu do |f|%>
-                <div>
-                    <%= f.text_field :name, placeholder: "Nome do #{@menu.model_name.human}", id: 'menu_name_field'%>
-                </div>
-                
-                <%= f.submit "Criar #{@menu.model_name.human}"%>
-            <% end %>
-        </section>
+        <% if current_admin%>
+            <section>
+                <h1>Adicionar <%= @menu.model_name.human%></h1>
+                <%= form_with model: @menu do |f|%>
+                    <div>
+                        <%= f.text_field :name, placeholder: "Nome do #{@menu.model_name.human}", id: 'menu_name_field'%>
+                    </div>
+                    
+                    <%= f.submit "Criar #{@menu.model_name.human}"%>
+                <% end %>
+            </section>
+        <% end %>
 
         <section>
             <% @menus.each do |menu|%> 
                 <div class="menu_container p-10 mb-20 border-2 border-default-200 rounded-md">
-                    <section class="flex gap-3 items-center">
+                    <section class="flex justify-between items-center">
                         <h2 class="text-2xl"><%= menu.name%></h2>
-                        <%= link_to "Editar #{@menu.model_name.human}", edit_menu_path(menu.id)%>
+                        <% if current_admin%>
+                            <%= link_to "Editar #{@menu.model_name.human}", edit_menu_path(menu.id)%>
+                        <% end %>
                         <% if menu.items.valid.present?%>
                             <button class="menu_dropdown" data-menu-target="toggleButton"><%= image_tag 'arrow_down.svg', width: 20, height: 20%></button>
                         <% end %>

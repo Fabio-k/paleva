@@ -38,7 +38,7 @@ describe 'admin visit dashboard' do
     login_as admin, scope: :admin
     visit "/"
     within 'nav' do
-      click_on 'itens'
+      click_on 'Itens'
     end
     expect(page).to have_content 'lasanha'
     expect(page).to have_content 'Ativo'

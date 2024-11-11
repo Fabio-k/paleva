@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_user!
   before_action :set_restaurant
 
   def index 
@@ -47,7 +47,8 @@ class MenusController < ApplicationController
   private 
 
   def set_restaurant
-    @restaurant = current_admin.restaurant
+
+    @restaurant = current_user.restaurant
   end
 
   def menu_params

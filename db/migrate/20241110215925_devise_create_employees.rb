@@ -34,6 +34,7 @@ class DeviseCreateEmployees < ActiveRecord::Migration[7.2]
 
       t.string :cpf, null: false
       t.string :name
+      t.references :restaurant, null: false, foreign_key: true
 
       t.timestamps null: false
     end

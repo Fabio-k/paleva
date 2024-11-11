@@ -1,5 +1,9 @@
 <div class="flex flex-col w-80">
-<h2 class="text-3xl mb-10">Fazer Login</h2>
+<h2 class="text-3xl mb-5">Fazer Login</h2>
+ <div class="flex gap-5 mb-10">
+      <%= link_to 'dono de restaurante', new_admin_session_path, class: "user-link #{"active" if resource_name == :admin}"%>
+      <%= link_to 'funcionário', new_employee_session_path, class: "user-link #{"active" if resource_name == :employee}"%>
+  </div>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field mb-4">

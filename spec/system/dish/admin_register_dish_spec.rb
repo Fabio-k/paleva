@@ -23,7 +23,7 @@ describe 'admin register a dish' do
     login_as admin, scope: :admin
     visit "/"
     within 'nav' do
-      click_on 'itens'
+      click_on 'Itens'
     end
     within 'section#menu_Item' do
       click_on 'Adicionar Item'

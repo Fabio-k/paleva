@@ -23,7 +23,12 @@
       <h1 class="text-3xl">PaLevá</h1>
       <div class="flex gap-3">
            <%if controller_name == 'registrations' %>
-            <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
+           <% if resource_name == :admin%>
+              <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
+           <% else%>
+              <%= link_to 'Entrar', new_employee_session_path, class: 'btn-submit text-md'%>
+           <% end %>
+            
            <% end %>
         </div>
     </header>
@@ -36,5 +41,11 @@
     <main class="flex-grow flex flex-col items-center">
       <%= yield %>
     </main>
+
+    <% if controller_name == 'sessions' && action_name == 'new' %>
+      <%= javascript_tag do %>
+        localStorage.clear();
+      <% end %>
+    <% end %>
   </body>
 </html>

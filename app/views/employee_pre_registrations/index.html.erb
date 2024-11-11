@@ -10,10 +10,12 @@
 <% end %>
 
 <h1>funcionário</h1>
-<div class="flex gap-5">
+
     <% @employee_pre_registrations.each do |emp_pre_r|%>
-        <p><%= emp_pre_r.cpf%></p>
-        <p><%= emp_pre_r.email%></p>
-        <p><%= emp_pre_r.is_used ? 'Usado' : 'Não usado'%></p>
+        <div class="flex gap-5">
+            <p><%= emp_pre_r.cpf%></p>
+            <p><%= emp_pre_r.email%></p>
+            <p><%= emp_pre_r.is_used ? 'Usado' : 'Não usado'%></p>
+        </div>
     <% end %>
-</div>
+

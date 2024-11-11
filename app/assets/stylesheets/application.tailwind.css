@@ -12,4 +12,11 @@
   .field {
     @apply mb-4;
   }
+  .user-link {
+    @apply text-gray-500 font-medium;
+  }
+
+  .user-link.active {
+    @apply text-amber-500;
+  }
 }

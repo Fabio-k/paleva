@@ -9,7 +9,7 @@ describe 'user register a portion' do
     login_as admin, scope: :admin
     visit '/' 
     within 'nav' do
-      click_on 'itens'
+      click_on 'Itens'
     end
     click_on 'Adicionar Porção'
     fill_in 'Descrição', with: 'Lasanha de queijo'
