@@ -1,7 +1,8 @@
 class CaracteristicsController < ApplicationController
+  before_action :authenticate_admin!
   def create
     caracteristic = Caracteristic.new(caracteristic_params)
-    caracteristic.admin = current_admin
+    caracteristic.restaurant = current_admin.restaurant
     if caracteristic.save
       redirect_to new_item_path
     end

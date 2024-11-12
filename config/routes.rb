@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :portions, only: [:edit, :update]
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   get 'search', to: 'dashboard#search', as: 'search_item'
-  resources :caracteristics, only: [:new, :create]
+  resources :caracteristics, only: [:create]
   resources :menus, only: [:index, :create, :edit, :update] 
   resources :orders, only: [:create]
   resources :employee_pre_registrations, only: [:index, :create]
