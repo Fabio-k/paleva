@@ -1,10 +1,14 @@
 class PortionsController < ApplicationController
+  before_action :authenticate_admin!
   def new
-    @item = Item.find(params[:item_id])
+    @item = current_admin.restaurant.items.find_by(id: params[:item_id])
+    redirect_to menus_path if @item.nil?
   end
 
   def create 
-    @item = Item.find(params[:item_id])
+    @item = current_admin.restaurant.items.find_by(id: params[:item_id])
+    return redirect_to menus_path, alert: 'Porção não encontrada' if @item.nil?
+
     @portion = @item.portions.build(description: params[:description], price: params[:price])
     @portion_price = @portion.portion_prices.build(price: params[:price])
     if @portion.save && @portion_price.save
@@ -16,11 +20,16 @@ class PortionsController < ApplicationController
   end
 
   def edit
-    @portion = Portion.find(params[:id])
+    @portion = current_admin.restaurant.portions.find_by(id: params[:id])
+    return redirect_to menus_path, alert: 'Porção não encontrada' if @portion.nil?
+
+
   end
 
   def update
-    @portion = Portion.find(params[:id])
+    @portion = current_admin.restaurant.portions.find_by(id: params[:id])
+    return redirect_to menus_path, alert: 'Porção não encontrada' if @portion.nil?
+
     price = params[:portion][:price]
     if @portion.update(portion_params)
       if @portion.portion_prices.empty? || @portion.portion_prices.last.price != price
