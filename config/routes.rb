@@ -34,4 +34,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:create]
   resources :employee_pre_registrations, only: [:index, :create]
 
+  namespace :api, {format: :json} do
+    resources :orders, only: [:index]
+  end
 end
