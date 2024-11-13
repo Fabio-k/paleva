@@ -5,6 +5,12 @@ pt-BR:
         one: Pedido
         other: Pedidos
     attributes:
+      order/status:
+        wainting_confirmation: Aguardando confirmação da cozinha
+        in_progress: em preparação
+        canceled: cancelado
+        ready: pronto
+        delivered: entregue
       order:
         client_name: Nome do cliente
         phone_number: Numero de telefone

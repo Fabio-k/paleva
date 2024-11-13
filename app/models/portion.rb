@@ -4,9 +4,13 @@ class Portion < ApplicationRecord
   validates :description, presence: true
 
   def show_price
-    price = self.price.to_s
+    price = current_price.to_s
     price.insert(-3, ',')
-    price.insert(-4, '0' ) if self.price < 100
+    price.insert(-4, '0' ) if current_price < 100
     "R$ #{price}"
+  end
+
+  def current_price
+    self.portion_prices.last.price
   end
 end

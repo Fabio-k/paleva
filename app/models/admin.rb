@@ -10,7 +10,7 @@ class Admin < ApplicationRecord
   validate :email_cpf_should_be_unique
 
   has_one :restaurant
-  has_many :caracteristics
+  
 
   private
 

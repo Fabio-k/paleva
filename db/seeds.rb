@@ -1,15 +1,16 @@
 PortionPrice.destroy_all
+OrderPortion.destroy_all
 Portion.destroy_all
 ItemCaracteristic.destroy_all
-Menu.destroy_all
 MenuItem.destroy_all
+Menu.destroy_all
 Item.destroy_all
 Employee.destroy_all
 EmployeePreRegistration.destroy_all
 Order.destroy_all
 BusinessHour.destroy_all
-Restaurant.destroy_all
 Caracteristic.destroy_all
+Restaurant.destroy_all
 Admin.destroy_all
 
 admin = Admin.find_or_create_by!(cpf: CPF.generate) do |admin|
@@ -21,6 +22,7 @@ admin = Admin.find_or_create_by!(cpf: CPF.generate) do |admin|
 end
 
 restaurant = Restaurant.create!(registration_number: CNPJ.generate, brand_name: 'Borges Café', corporate_name: 'Borges ltda', email: 'borgescafe@email.com', phone_number: '11997298767', admin: admin, street: 'Av. Brig. Faria Lima', address_number: '6755', city: 'São Paulo', state: 'São Paulo')
+restaurant.update(code: 'ABC123')
 cpf = CPF.generate
 EmployeePreRegistration.create!(cpf: cpf, email: 'rafael@email.com', restaurant: restaurant)
 Employee.create!(name: 'Rafael', cpf: cpf, email: 'rafael@email.com', password: 'senha123senha')
@@ -67,16 +69,22 @@ items = Item.create!([
 
 ])
 
+item_portion = nil
+cheese_bread = nil
+
 items.each do |item|
   case item.name 
   when 'Pão de queijo'
-    item.portions.create(description: '10 unidades', price: 2300)
-    item.portions.create(description: '20 unidades', price: 3580)
+    cheese_bread = item
+    item_portion = item.portions.create!(description: '10 unidades')
+    item_portion.portion_prices.create!(price: 2560)
+
+    item.portions.create!(description: '20 unidades')
     item.photo.attach(io: File.open(Rails.root.join('app/assets/images/paodequeijo.jpeg')), filename: 'paodequeijo.jpeg')
   when 'Suco de Laranja'
     item.portions.create(description: '200 ml', price: 1250)
     item.portions.create(description: '350 ml', price: 1875)
-    item.caracteristics.create!(name: 'Natural', admin: admin)
+    item.caracteristics.create!(name: 'Natural', restaurant: restaurant)
     item.photo.attach(io: File.open(Rails.root.join('app/assets/images/sucodelaranja.jpeg')), filename: 'sucodelaranja.jpeg')
   when 'Bolo de Morango'
     item.portions.create(description: '1 fatia', price: 650)
@@ -94,6 +102,20 @@ items.each do |item|
   sleep(0.1) # evitar deadlock
 end
 
-["Salgados", "Bebidas", "Sobremesas"].each do |name|
-  Menu.find_or_create_by!(name: name, restaurant: restaurant)
+Portion.all.each do |portion|
+  if portion.portion_prices.empty?
+    portion.portion_prices.create!(price: 1000) # Preço padrão
+  end
 end
+
+["Salgados", "Bebidas", "Sobremesas"].each do |name|
+  menu = Menu.find_or_create_by!(name: name, restaurant: restaurant)
+  if name == 'Salgados' 
+    menu.menu_items.create(item: cheese_bread)
+  end
+end
+
+order = Order.create!(cpf: CPF.generate, client_name: 'Jorge', phone_number: '24589332110', email: 'jorge@gmail.com', restaurant: restaurant)
+OrderPortion.create!(portion: item_portion, order: order, note: 'com 2 saches de ketchup')
+
+item_portion.update(price: 3240)
