@@ -36,5 +36,6 @@ Rails.application.routes.draw do
 
   namespace :api, {format: :json} do
     resources :orders, only: [:index]
+    get 'order', to:'orders#show', as: 'order'
   end
 end

@@ -16,7 +16,7 @@ describe 'user try to get orders' do
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
 
-    get api_orders_path, params: {code: 'ABC123'}, headers: { 'Accept' => 'application/json' }
+    get api_orders_path, params: {restaurant_code: 'ABC123'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :ok
     json_response = response.parsed_body
@@ -50,7 +50,7 @@ describe 'user try to get orders' do
     other_order = Order.create!(status: :delivered,cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
     other_order.order_portions.create!(note: 'Colocar em dois pratos', quantity: 1, portion: other_portion)
 
-    get api_orders_path, params: {code: 'ABC123', status: 'entregue'}, headers: { 'Accept' => 'application/json' }
+    get api_orders_path, params: {restaurant_code: 'ABC123', status: 'entregue'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :ok
     json_response = response.parsed_body
@@ -76,7 +76,7 @@ describe 'user try to get orders' do
     other_order = Order.create!(status: :delivered,cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
     other_order.order_portions.create!(note: 'Colocar em dois pratos', quantity: 1, portion: other_portion)
 
-    get api_orders_path, params: {code: 'ABC123', status: 'invalid'}, headers: { 'Accept' => 'application/json' }
+    get api_orders_path, params: {restaurant_code: 'ABC123', status: 'invalid'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :ok
     json_response = response.parsed_body
@@ -96,7 +96,7 @@ describe 'user try to get orders' do
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
 
-    get api_orders_path, params: {code: '123ABC'}, headers: { 'Accept' => 'application/json' }
+    get api_orders_path, params: {restaurant_code: '123ABC'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :not_found
   end
