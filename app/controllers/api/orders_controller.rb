@@ -15,6 +15,15 @@ class Api::OrdersController < ApiController
       return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
   end
 
+  def accept 
+    @order = @restaurant.orders.find_by(code: params[:order_code])
+    return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
+
+    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.update(status: :in_progress)
+
+    render json: {message: 'Pedido criado com sucesso'}, statis: :ok 
+  end
+
   private
 
   def set_restaurant

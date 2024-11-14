@@ -100,4 +100,30 @@ describe 'user try to get orders' do
 
     expect(response).to have_http_status :not_found
   end
+
+  it 'And user cant view other restaurant order' do
+    admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
+    restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
+    item = Dish.create!(name: 'lasanha', description: 'Lasanha de queijo com abóbora', restaurant: restaurant)
+    portion = Portion.create!(item: item, description: 'Lasanha para uma pessoa')
+    PortionPrice.create!(portion: portion, price: 3240)
+    order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
+    order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
+
+    other_admin = Admin.create!(cpf: CPF.generate, name: 'Sakura', last_name: 'Haruno', email: 'sakura@email.com', password: 'senha123senha')
+    other_restaurant = Restaurant.create!(brand_name: 'Seven Eleven', corporate_name: 'Seven Eleven LTDA', registration_number: CNPJ.generate, street: 'Tobirama street', address_number: '3', city: 'Konoha', state: 'País do Fogo', phone_number: '1160894339', email: 'elevenseven@email.com', admin: other_admin)
+    item = Dish.create!(name: 'Lamen', description: 'O segundo melhor da vila', restaurant: other_restaurant)
+    portion = Portion.create!(item: item, description: 'Para uma pessoa')
+    PortionPrice.create!(portion: portion, price: 3240)
+    other_order = Order.create!(cpf: CPF.generate, client_name: 'Naruto', phone_number: '24589332110', email: 'naruto@gmail.com', restaurant: other_restaurant)
+    other_order.order_portions.create!(note: 'deixar bem quente', quantity: 1, portion: portion)
+
+    get api_orders_path, params: {restaurant_code: restaurant.code}, headers: { 'Accept' => 'application/json' }
+    json_response = response.parsed_body
+
+    expect(response).to have_http_status :ok
+    orders = json_response[:orders]
+    expect(orders.length).to eq 1
+    expect(orders[0][:code]).to eq order.code
+  end
 end
