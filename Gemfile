@@ -20,6 +20,9 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 #validate CPF and CNPJ
 gem "cpf_cnpj"
+#CORS
+gem 'rack-cors'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

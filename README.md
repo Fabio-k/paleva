@@ -8,10 +8,13 @@
 
 Palevá é um sistema de gerenciamento de pedidos para restaurantes do tipo Take Away. Ele permite que os restaurantes gerenciem seus pedidos de forma eficiente, desde a criação do pedido até a entrega.
 
+[link para o gerenciador de pedidos](https://github.com/Fabio-k/paleva-vue)
+
 ## Pré Requisitos
 
 - Ruby v3.3.2
 - Rails v7.2.1.1
+- SQLite
 
 ## Como rodar o projeto
 
@@ -27,6 +30,12 @@ git clone https://github.com/Fabio-k/paleva.git
 cd paleva
 ```
 
+- instale as dependências
+
+```bash
+bundle install
+```
+
 - Crie e popule o banco de dados
 
 ```bash
@@ -40,7 +49,7 @@ rails db:seed
 bin/dev
 ```
 
-- acesse a aplicação no link http://localhost:3000/
+- acesse a aplicação no link http://localhost:4000/
 
 ## Usuários Disponíveis pelo seed
 

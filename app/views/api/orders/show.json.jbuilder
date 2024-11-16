@@ -1,3 +1,4 @@
+json.code @order.code
 json.client_name @order.client_name
 json.status Order.human_attribute_name("status.#{@order.status}")
 json.entry_data @order.created_at
