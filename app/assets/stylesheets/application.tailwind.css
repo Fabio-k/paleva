@@ -9,6 +9,11 @@
   .input-primary {
     @apply w-full border-none bg-neutral-200 rounded-xl py-3 px-4;
   }
+
+  .input-secondary {
+    @apply w-full border-2 border-gray-200 rounded-xl py-3 px-4;
+  }
+
   .field {
     @apply mb-4;
   }

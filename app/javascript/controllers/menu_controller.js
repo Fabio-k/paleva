@@ -34,7 +34,7 @@ export default class extends Controller {
     const portionTitle = button.dataset.portionTitle;
     const portionPrice = button.dataset.portionPrice;
 
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let orders = this.getItems();
 
     const existingOrder = orders.find((order) => order.id == portionId);
 
@@ -49,7 +49,7 @@ export default class extends Controller {
       });
     }
 
-    localStorage.setItem("orders", JSON.stringify(orders));
+    localStorage.setItem("items", JSON.stringify(orders));
     this.updateOrderList();
   }
 
@@ -57,21 +57,23 @@ export default class extends Controller {
     const button = event.currentTarget;
     const portionId = button.dataset.portionId;
 
-    let orders = JSON.parse(localStorage.getItem("orders"));
+    let orders = this.getItems();
 
     orders = orders.filter((order) => order.id != portionId);
 
-    localStorage.setItem("orders", JSON.stringify(orders));
+    localStorage.setItem("items", JSON.stringify(orders));
 
     this.updateOrderList();
   }
 
   updateOrderList() {
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const orders = this.getItems();
     const orderInputs = this.orderInputsTarget;
     const orderTotal = this.orderTotalTarget;
 
     orderInputs.innerHTML = "";
+    orderInputs.classList =
+      "bg-white flex flex-col border-2 border-gray-300 rounded gap-10 min-h-[30vh] max-h-[30vh] overflow-auto p-5 mb-10";
     orderTotal.innerHTML = "";
     let totalCost = 0;
 
@@ -82,7 +84,7 @@ export default class extends Controller {
     }
 
     orders.forEach((order) => {
-      totalCost += parseInt(order.price);
+      totalCost += parseInt(order.price) * parseInt(order.quantity);
       const titleDiv = document.createElement("div");
       titleDiv.className = "flex gap-2";
 
@@ -93,10 +95,13 @@ export default class extends Controller {
 
       div.appendChild(titleDiv);
 
+      const icon = document.createElement("img");
+      icon.src = "/assets/trash.svg";
+      icon.width = 20;
       const removeButton = document.createElement("button");
-      removeButton.textContent = "Remover";
       removeButton.dataset.portionId = order.id;
       removeButton.addEventListener("click", this.removePortion.bind(this));
+      removeButton.appendChild(icon);
       titleDiv.appendChild(removeButton);
 
       const input = document.createElement("input");
@@ -105,25 +110,30 @@ export default class extends Controller {
       input.value = order.id;
       div.appendChild(input);
 
-      const quantityInput = document.createElement("input");
-      quantityInput.type = "hidden";
-      quantityInput.name = `order[order_portions][][quantity]`;
-      quantityInput.value = order.quantity;
-      div.appendChild(quantityInput);
+      div.appendChild(this.priceAndQuantityDiv(order));
 
       const notesInput = document.createElement("input");
       notesInput.type = "text";
       notesInput.name = "order[order_portions][][note]";
       notesInput.placeholder = "observação";
+      notesInput.classList = "input-secondary mt-5";
       div.appendChild(notesInput);
 
       orderInputs.appendChild(div);
     });
 
     const totalPriceText = document.createElement("p");
+    totalPriceText.textContent = `Total: R$ ${this.formatPrice(totalCost)}`;
+    orderTotal.appendChild(totalPriceText);
+  }
 
-    let totalCostString = totalCost.toString();
-    const indexToInsertAt = totalCostString.length - 2;
+  getItems() {
+    return JSON.parse(localStorage.getItem("items")) || [];
+  }
+
+  formatPrice(price) {
+    let priceString = price.toString();
+    const indexToInsertAt = priceString.length - 2;
     let separator = ",";
     if (indexToInsertAt < 2) {
       separator = "0,";
@@ -133,11 +143,66 @@ export default class extends Controller {
     }
 
     const formattedPrice =
-      totalCostString.slice(0, indexToInsertAt) +
+      priceString.slice(0, indexToInsertAt) +
       separator +
-      totalCostString.slice(indexToInsertAt);
-    formattedPrice.i;
-    totalPriceText.textContent = `Total: R$ ${formattedPrice}`;
-    orderTotal.appendChild(totalPriceText);
+      priceString.slice(indexToInsertAt);
+
+    return formattedPrice;
+  }
+
+  priceAndQuantityDiv(order) {
+    const informationDiv = document.createElement("div");
+    informationDiv.classList = "flex gap-10";
+
+    const itemTotalPrice = order.quantity * order.price;
+    const price = document.createElement("p");
+    price.textContent = `R$ ${this.formatPrice(itemTotalPrice)}`;
+    informationDiv.appendChild(price);
+
+    const quantityDiv = document.createElement("div");
+    quantityDiv.className = "flex gap-5";
+
+    quantityDiv.appendChild(this.quantityButton(order, "-", -1));
+
+    const quantityP = document.createElement("p");
+    quantityP.textContent = order.quantity;
+    quantityDiv.appendChild(quantityP);
+
+    quantityDiv.appendChild(this.quantityButton(order, "+", 1));
+
+    const quantityInput = document.createElement("input");
+    quantityInput.type = "hidden";
+    quantityInput.name = `order[order_portions][][quantity]`;
+    quantityInput.value = order.quantity;
+
+    informationDiv.appendChild(quantityInput);
+    informationDiv.appendChild(quantityDiv);
+
+    return informationDiv;
+  }
+
+  quantityButton(order, text, value) {
+    const Button = document.createElement("p");
+    Button.textContent = text;
+    Button.classList = "cursor-pointer";
+    Button.dataset.id = order.id;
+    Button.addEventListener("click", (event) =>
+      this.changeQuantity(event, value)
+    );
+
+    return Button;
+  }
+
+  changeQuantity(event, value) {
+    const button = event.currentTarget;
+    const itemId = button.dataset.id;
+
+    let items = this.getItems();
+    const item = items.find((item) => item.id == itemId);
+    if (item.quantity + value >= 1) {
+      item.quantity += value;
+    }
+    localStorage.setItem("items", JSON.stringify(items));
+    this.updateOrderList();
   }
 }

@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   enum :status, {:wainting_confirmation=>0, :in_progress=>2, :canceled=>4, :ready=>6, :delivered=>8}
 
   def calculate_total
-   self.total_price = self.order_portions.includes(:portion).sum {|order_portion| order_portion.price}
+   self.total_price = self.order_portions.includes(:portion).sum {|order_portion| order_portion.price * order_portion.quantity}
   end
 
   private
