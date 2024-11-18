@@ -12,7 +12,7 @@ describe 'user see beverage details' do
 
     login_as admin, scope: :admin
     get item_path(beverage.id)
-    expect(response).to redirect_to dashboard_path
+    expect(response).to redirect_to items_path
     follow_redirect!
     expect(response.body).to include('Bebida não encontrada')
   end

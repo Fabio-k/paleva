@@ -9,7 +9,7 @@ class  RestaurantsController < ApplicationController
   end
   def new
     if current_admin.restaurant
-      redirect_to dashboard_path
+      redirect_to items_path
     end
     @restaurant = Restaurant.new
   end
@@ -21,6 +21,7 @@ class  RestaurantsController < ApplicationController
     if restaurant.save
       redirect_to business_hours_path
     else
+      @restaurant = Restaurant.new
       flash.now[:alert] = 'Erro ao cadstrar Restaurante'
       render 'new'
     end
@@ -29,7 +30,7 @@ class  RestaurantsController < ApplicationController
   private 
 
   def redirect_if_admin_has_restaurant
-    return redirect_to dashboard_path if admin_has_restaurant?
+    return redirect_to items_path if admin_has_restaurant?
   end
 
   def admin_has_restaurant?

@@ -1,12 +1,12 @@
 <h2 class="text-2xl">Cadastrar funcionário</h2>
-<%= form_with model: @employee_pre_registration do |f|%>
-    <div class="field">
-        <%= f.text_field :email, placeholder: 'E-mail'%>
+<%= form_with model: @employee_pre_registration, html: {class: 'flex gap-10'} do |f|%>
+    <div class="field" >
+        <%= f.text_field :email, placeholder: 'E-mail', class: "input-secondary w-64"%>
     </div>
     <div class="field">
-        <%= f.text_field :cpf, placeholder: 'CPF'%>
+        <%= f.text_field :cpf, placeholder: 'CPF', class: "input-secondary w-64"%>
     </div>
-    <%= f.submit 'Cadastrar'%>
+    <%= f.submit 'Cadastrar', class: 'btn-submit w-64 mb-4'%>
 <% end %>
 
 <h1 class="text-xl">funcionários</h1>

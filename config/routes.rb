@@ -26,9 +26,8 @@ Rails.application.routes.draw do
     patch 'change_status', on: :member
     resources :portions, only: [:new, :create]
   end
+  get 'search', to: 'items#search', as: 'search_item'
   resources :portions, only: [:edit, :update]
-  get 'dashboard', to: 'dashboard#index', as: 'dashboard'
-  get 'search', to: 'dashboard#search', as: 'search_item'
   resources :caracteristics, only: [:create]
   resources :menus, only: [:index, :create, :edit, :update] 
   resources :orders, only: [:create]

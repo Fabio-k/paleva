@@ -13,7 +13,7 @@ describe 'admin delete dish' do
 
     login_as admin, scope: :admin
     delete item_path(dish.id)
-    expect(response).to redirect_to dashboard_path
+    expect(response).to redirect_to items_path
     follow_redirect!
     expect(response.body).to include 'Item não foi encontrado'
   end

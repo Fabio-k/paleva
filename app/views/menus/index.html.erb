@@ -42,7 +42,7 @@
 
 
     <section class="fixed flex flex-col w-96 h-screen border-2 border-gray-200 right-0 top-0 p-10" >
-        <h1 class="text-2xl"><%= @order.model_name.human %></h1>
+        <h1 class="text-2xl mb-5"><%= @order.model_name.human %></h1>
         <%= form_with model: @order do |f| %>
             <div data-menu-target="orderInputs" class="flex flex-col gap-5 mb-10"></div>
             <h2 class="text-xl">Dados do cliente</h2>

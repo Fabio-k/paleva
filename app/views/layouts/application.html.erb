@@ -22,7 +22,7 @@
     <aside class="fixed flex flex-col justify-between w-72 bg-gradient-to-tr from-gray-200 to-neutral-200 h-screen">
       <section>
         <div class="p-4">
-          <%= link_to dashboard_path do%>
+          <%= link_to menus_path do%>
             <h1 class="text-3xl font-medium mb-2">Pa<span class="text-amber-500">Levá</span></h1>
           <% end %>
       
@@ -41,11 +41,12 @@
         </div>
 
         <nav class="flex flex-col gap-1">
-          <%= link_to current_user.restaurant.brand_name, restaurant_path(current_user.restaurant.id), class: "menu-nav #{"active" if controller_name == "restaurants" && action_name == "show"}" %>
-          <%= link_to 'Cardápio', menus_path, class: "menu-nav #{"active" if controller_name == "menus" && action_name == "index"}"%>
+          <%= render 'layouts/menu_button', menu_text: current_user.restaurant.brand_name, path: restaurant_path(current_user.restaurant.id), menu_con_name: 'restaurants', menu_con_action: 'show'%>
+          <%= render 'layouts/menu_button', menu_text: 'Cardápio', path: menus_path, menu_con_name: 'menus', menu_con_action: 'index'%>
           <% if current_admin%>
-            <%= link_to 'Itens', dashboard_path, class: "menu-nav #{"active" if controller_name == "dashboard" && action_name == "index"}"%>
-            <%= link_to 'Funcionários', employee_pre_registrations_path, class: "menu-nav #{"active" if controller_name == "employee_pre_registrations" && action_name == "index"}"%>
+            <%= render 'layouts/menu_button', menu_text: 'Itens', path: items_path, menu_con_name: 'items', menu_con_action: 'index'%>
+            <%= render 'layouts/menu_button', menu_text: 'Funcionários', path: employee_pre_registrations_path, menu_con_name: 'employee_pre_registrations', menu_con_action: 'index'%>
+            <%= render 'layouts/menu_button', menu_text: 'Horários', path: business_hours_path, menu_con_name: 'business_hours', menu_con_action: 'index'%>
           <% end %>
         </nav>
       </section>

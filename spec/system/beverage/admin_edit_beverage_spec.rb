@@ -48,7 +48,7 @@ describe 'admin edit a beverage' do
     login_as admin, scope: :admin
     visit edit_item_path(beverage.id)
 
-    expect(current_path).to eq dashboard_path
+    expect(current_path).to eq items_path
     expect(page).not_to have_content 'Mushrom juice'
   end
 end

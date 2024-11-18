@@ -12,7 +12,7 @@ describe 'admin delete beverage' do
 
     login_as admin, scope: :admin
     delete item_path(beverage.id)
-    expect(response).to redirect_to dashboard_path
+    expect(response).to redirect_to items_path
     follow_redirect!
     expect(response.body).to include('Item não foi encontrado')
   end

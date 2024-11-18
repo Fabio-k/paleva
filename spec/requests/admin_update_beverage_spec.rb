@@ -12,7 +12,7 @@ describe 'admin update beverage' do
 
     login_as admin, scope: :admin
     patch item_path(beverage.id), params: {beverage: {name: 'Suco de limão'}}
-    expect(response).to redirect_to dashboard_path
+    expect(response).to redirect_to items_path
     follow_redirect!
     expect(response.body).to include('Item não foi encontrado')
   end

@@ -1,3 +1,4 @@
-<h1 class="text-2xl"><%= @restaurant.brand_name%></h1>
-<p><%= @restaurant.corporate_name %></p>
+<h1 class="text-2xl font-medium"><%= @restaurant.brand_name%> <span class="text-lg"><%= @restaurant.code%></span></h1> 
+<p><%= @restaurant.corporate_name %> </p>
+<address class="font-medium"><%= @restaurant.street%>, <%= @restaurant.address_number %>, <%= @restaurant.city %>, <%= @restaurant.state%></address>
 <p><%= @restaurant.registration_number %></p>

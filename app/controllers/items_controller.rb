@@ -2,6 +2,11 @@ class ItemsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_item, only: [:change_status, :destroy, :show, :edit, :update]
 
+  def index
+    @restaurant = current_admin.restaurant
+    @items = @restaurant.items.where(is_removed: false)
+  end
+
   def show
     
   end
@@ -41,14 +46,14 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to item_path(@item.id)
     else
-      redirect_to dashboard_path, alert: 'Erro ao atualizar o status do item'
+      redirect_to items_path, alert: 'Erro ao atualizar o status do item'
     end
 
   end
 
   def destroy
     if @item.update(is_removed: true)
-      redirect_to dashboard_path, notice: "Item removido com sucesso"
+      redirect_to items_path, notice: "Item removido com sucesso"
     else
       render 'show'
     end
@@ -69,6 +74,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    restaurant = current_admin.restaurant
+    @query = params[:query]
+    @items = restaurant.items.where 'name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{@query}%"
+  end
+
   private
 
   def item_params
@@ -77,7 +88,7 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
-    redirect_to dashboard_path, notice: 'Item não foi encontrado' unless admin_owns_item?
+    redirect_to items_path, notice: 'Item não foi encontrado' unless admin_owns_item?
   end
 
   def admin_owns_item?

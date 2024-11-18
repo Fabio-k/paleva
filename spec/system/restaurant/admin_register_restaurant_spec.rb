@@ -5,7 +5,7 @@ describe 'admin register restaurant' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
 
     login_as admin, scope: :admin
-    visit new_restaurant_path
+    visit '/'
     fill_in 'Nome fantasia', with: 'Djapa'
     fill_in 'Razão social', with: 'Djapa'
     fill_in 'CNPJ', with: CNPJ.generate
@@ -21,5 +21,17 @@ describe 'admin register restaurant' do
 
     expect(page).to have_content 'Adicionar Horário'
     expect(admin.restaurant.nil?).to eq false
+  end
+
+  it 'with fail' do
+    admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
+
+    login_as admin, scope: :admin
+    visit new_restaurant_path
+    fill_in 'Nome fantasia', with: ''
+    fill_in 'Razão social', with: ''
+    click_on 'Cadastrar'
+
+    expect(page).to have_content 'Erro ao cadstrar Restaurante'
   end
 end
