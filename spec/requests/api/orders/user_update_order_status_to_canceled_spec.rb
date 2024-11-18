@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'user try to update order status to in preparation' do
+describe 'user try to update order status to canceled' do
   it 'with success' do
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('ABC123')
     allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
@@ -16,15 +16,11 @@ describe 'user try to update order status to in preparation' do
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
 
-    patch api_order_accept_path, params: {restaurant_code: 'ABC123', order_code: order.code}, headers: { 'Accept' => 'application/json' }
-    get api_order_path, params: {restaurant_code: 'ABC123', order_code: order.code}, headers: { 'Accept' => 'application/json' }
-    json_response = response.parsed_body
-
+    patch api_order_cancel_path, params: {restaurant_code: 'ABC123', order_code: order.code, reason_message: 'Impossível fazer sem azeitona'}, headers: { 'Accept' => 'application/json' }
     expect(response).to have_http_status :ok
-    expect(json_response[:status]).to eq Order.human_attribute_name("status.in_progress")
   end
 
-  it 'with fail' do
+  it 'with success' do
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('ABC123')
     allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
 
@@ -39,14 +35,11 @@ describe 'user try to update order status to in preparation' do
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
 
-    patch api_order_accept_path, params: {restaurant_code: 'ABC123', order_code: 'YDU234'}, headers: { 'Accept' => 'application/json' }
-    json_response = response.parsed_body
-
-    expect(response).to have_http_status :not_found
-    expect(json_response[:error]).to eq 'Pedido não encontrado'
+    patch api_order_cancel_path, params: {restaurant_code: 'ABC123', order_code: order.code}, headers: { 'Accept' => 'application/json' }
+    expect(response).to have_http_status :unprocessable_entity
   end
 
-  it 'And fail because order status is ready' do
+  it 'And fail because he cant cancel a order that is already ready' do
     allow(SecureRandom).to receive(:alphanumeric).with(6).and_return('ABC123')
     allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABCD1234')
 
@@ -61,8 +54,7 @@ describe 'user try to update order status to in preparation' do
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
 
-    patch api_order_accept_path, params: {restaurant_code: 'ABC123', order_code: order.code}, headers: { 'Accept' => 'application/json' }
-    
+    patch api_order_cancel_path, params: {restaurant_code: 'ABC123', order_code: order.code, reason_message: 'Impossível fazer sem azeitona'}, headers: { 'Accept' => 'application/json' }
     expect(response).to have_http_status :unprocessable_entity
   end
 
@@ -84,7 +76,7 @@ describe 'user try to update order status to in preparation' do
     other_order.order_portions.create!(note: 'deixar bem quente', quantity: 1, portion: portion)
 
 
-    patch api_order_accept_path, params: {restaurant_code: restaurant.code, order_code: other_order.code}, headers: { 'Accept' => 'application/json' }
+    patch api_order_accept_path, params: {restaurant_code: restaurant.code, order_code: other_order.code, reason_message: "teste"}, headers: { 'Accept' => 'application/json' }
     json_response = response.parsed_body
 
     expect(response).to have_http_status :not_found

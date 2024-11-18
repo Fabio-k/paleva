@@ -7,6 +7,8 @@ class Order < ApplicationRecord
 
   validate :valid_email_or_valid_phone_number_should_be_present
   validate :cpf_should_be_valid
+  validate :cancelled_order_should_have_reason_message
+  validate :cannot_change_status_if_ready
 
   before_validation :generate_code, on: :create
 
@@ -43,4 +45,24 @@ class Order < ApplicationRecord
        end
     end
   end
+
+  def cancelled_order_should_have_reason_message
+    if self.status == 'canceled' && self.reason_message.blank?
+      errors.add(:reason_message, 'razão para o cancelamento deve ser obrigatório')
+    end
+  end
+
+  def cannot_change_status_if_ready
+    if status_changed? && self.status_was == 'ready'
+      errors.add(:status, 'não pode ser alterado quando está pronto')
+    end
+  end
+
+  def cannot_accept_if_its_already_accepted
+    if self.status == 'in_progress' && !self.status_was == 'wainting_confirmation'
+      errors.add(:status, 'não pode aceitar um pedido que já foi aceito')
+    end
+  end
+
+  scope :visible_status_to_client, -> {where.not(status: 'canceled')}
 end

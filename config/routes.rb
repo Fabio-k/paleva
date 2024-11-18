@@ -38,5 +38,6 @@ Rails.application.routes.draw do
     get 'order', to:'orders#show', as: 'order'
     patch 'order/accept', to: "orders#accept", as: 'order_accept'
     patch 'order/ready', to: "orders#ready", as: 'order_ready'
+    patch 'order/cancel', to: "orders#cancel", as: 'order_cancel'
   end
 end
