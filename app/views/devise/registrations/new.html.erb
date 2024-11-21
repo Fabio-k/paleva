@@ -14,37 +14,37 @@
             <%= link_to 'funcionário', new_employee_registration_path, class: "user-link #{"active" if resource_name == :employee}"%>
         </div>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
-
-            <div class="field">
-            <%= f.label :cpf %><br />
-            <%= f.text_field :cpf, autofocus: true, autocomplete: "cpf", class: 'input-primary'%>
-            </div>
-
-            <div class="field">
-            <%= f.label :name %><br />
-            <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
-            </div>
-
-            <% if resource_name == :admin%>
-                <div class="field">
-                    <%= f.label :last_name %><br />
-                    <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
-                </div>
+            
+            <%= render layout: 'input', locals: {model: resource, field: :cpf} do%>
+                <p><%= f.label :cpf %></p>
+                <%= f.text_field :cpf, autofocus: true, autocomplete: "cpf", class: 'input-primary'%>
+            <% end %>
+               
+                  
+            <%= render layout: 'input', locals: {model: resource, field: :name} do%>
+                <%= f.label :name %><br />
+                <%= f.text_field :name, autocomplete: "name", class: 'input-primary'%>
             <% end %>
 
-            <div class="field">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autocomplete: "email", class: 'input-primary' %>
-            </div>
+            <% if resource_name == :admin%>
+                <%= render layout: 'input', locals: {model: resource, field: :last_name} do%>
+                    <%= f.label :last_name %><br />
+                    <%= f.text_field :last_name, autocomplete: "last_name", class: 'input-primary' %>
+                <% end %>
+            <% end %>
 
-            <div class="field">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-            <em>(minímo de <%= @minimum_password_length %>)</em>
-            <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password", class: 'input-primary' %>
-            </div>
+            <%= render layout: 'input', locals: {model: resource, field: :email} do%>
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autocomplete: "email", class: 'input-primary' %>
+            <% end %>
+
+            <%= render layout: 'input', locals: {model: resource, field: :password} do%>
+                <%= f.label :password %>
+                    <% if @minimum_password_length %>
+                        <em>(minímo de <%= @minimum_password_length %>)</em>
+                    <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", class: 'input-primary' %>
+            <% end %>
 
             <div class="field">
             <%= f.label :password_confirmation %><br />

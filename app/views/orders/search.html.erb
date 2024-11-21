@@ -1,0 +1,46 @@
+<h1 class="text-3xl mb-5">Consultar estado do pedido</h1>
+<%= form_with url: search_order_path,html: {class: 'flex gap-2'}, method: :get do |f|%>
+    <%= f.text_field :code, placeholder: 'Código do pedido', class: 'input-secondary min-w-80'%>
+   <button type="submit" id="search_item" class="btn-submit flex items-center justify-center min-w-10">
+        <div>
+            <%= image_tag 'search.svg', class: 'w-5 h-5'%>
+        </div>
+    </button>
+<% end %>
+<% if @order%>
+    <div class="mt-10">
+        <h1 class="text-xl"><%= @restaurant.brand_name%></h1> 
+        <address class="font-medium"><%= @restaurant.street%>, <%= @restaurant.address_number %>, <%= @restaurant.city %>, <%= @restaurant.state%></address>
+        <p>CNPJ: <%= @restaurant.registration_number %></p>
+        <p>Telefone: <%= @restaurant.phone_number%></p>
+    
+
+        <table class="border-separate border-spacing-4">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Data de criação</td>
+                    <td>
+                        <p><%= @order.created_at.strftime('%H:%M')%> <%= I18n.localize(@order.created_at.to_date) %></p>
+                    </td>
+                </tr>
+                <%= render partial: 'status_row', locals: {title: 'Data de início do preparo', field: :in_progress} %>
+
+                <%= render partial: 'status_row', locals: {title: 'Data de conclusão', field: :ready} %>
+                <%= render partial: 'status_row', locals: {title: 'Data de entrega', field: :delivered} %>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+             
+            </tbody>
+        </table>
+    </div>
+<% end %>

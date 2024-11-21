@@ -1,0 +1,8 @@
+<div class="w-full">
+    <%= yield%>
+    <div class="text-red-600 mt-1 min-h-6">
+        <% if model.errors[field].any?%>
+            <%= model.errors[field].first%>
+        <% end %>
+    </div>
+</div>

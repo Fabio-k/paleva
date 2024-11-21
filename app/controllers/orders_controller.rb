@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create]
+  layout 'devise'
   def create
     order_params = params.require(:order).permit(:cpf, :client_name, :email, :phone_number)
     order_portions_params = params[:order][:order_portions] 
@@ -36,7 +37,16 @@ class OrdersController < ApplicationController
       return render 'menus/index', status: :unprocessable_entity
     end
     
-   
+  end
+
+  def search
+    
+  end
+
+  def search_order
+    @order = Order.find_by(code: params[:code])
+    @restaurant = @order.restaurant
+    render 'search'
   end
 
   private

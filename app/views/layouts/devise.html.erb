@@ -21,16 +21,20 @@
   <body class="h-screen flex flex-col">
     <header class="flex items-center justify-between w-full px-10 py-4 shadow">
       <h1 class="text-3xl">PaLevá</h1>
-      <div class="flex gap-3">
-           <%if controller_name == 'registrations' %>
-           <% if resource_name == :admin%>
-              <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
-           <% else%>
-              <%= link_to 'Entrar', new_employee_session_path, class: 'btn-submit text-md'%>
+      <div class="flex gap-3 items-center">
+        <%= link_to 'Consultar status do pedido', search_orders_path, class: 'min-w-52'%>
+           <%if controller_name == 'registrations'%>
+            <% if resource_name == :admin%>
+                <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
+            <% else%>
+                <%= link_to 'Entrar', new_employee_session_path, class: 'btn-submit text-md'%>
+            <% end %>
            <% end %>
-            
+           <% if controller_name == "orders"%>
+            <%= link_to 'Entrar', new_admin_session_path, class: 'btn-submit text-md'%>
            <% end %>
-        </div>
+      
+      </div>
     </header>
     <%if controller_name != 'registrations' %>
       <div class="w-full flex text-center my-4 min-h-20 items-center justify-center">

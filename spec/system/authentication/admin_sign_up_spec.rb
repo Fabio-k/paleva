@@ -25,6 +25,6 @@ describe 'user sign up' do
     fill_in 'Sobrenome', with: ''
     click_on 'Criar Conta'
 
-    expect(page).to have_content 'Não foi possível criar dono de restaurante'
+    expect(page).to have_content 'não pode ficar em branco'
   end
 end

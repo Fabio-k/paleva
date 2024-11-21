@@ -37,6 +37,6 @@ describe 'employee sign up' do
     fill_in 'Confirme sua senha', with: 'senha123senha'
     click_on 'Criar Conta'
 
-    expect(page).to have_content 'Não foi possível criar funcionário'
+    expect(current_path).to eq employee_registration_path
   end
 end

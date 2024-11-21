@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   resources :portions, only: [:edit, :update]
   resources :caracteristics, only: [:create]
   resources :menus, only: [:index, :create, :edit, :update] 
-  resources :orders, only: [:create]
+  resources :orders, only: [:create] do
+    get 'search', on: :collection
+  end
+  get 'search_order', to: 'orders#search_order', as: 'search_order'
   resources :employee_pre_registrations, only: [:index, :create]
 
   namespace :api, {format: :json} do

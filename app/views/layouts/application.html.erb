@@ -41,6 +41,7 @@
         </div>
 
         <nav class="flex flex-col gap-1">
+        
           <%= render 'layouts/menu_button', menu_text: current_user.restaurant.brand_name, path: restaurant_path(current_user.restaurant.id), menu_con_name: 'restaurants', menu_con_action: 'show'%>
           <%= render 'layouts/menu_button', menu_text: 'Cardápio', path: menus_path, menu_con_name: 'menus', menu_con_action: 'index'%>
           <% if current_admin%>
@@ -48,12 +49,15 @@
             <%= render 'layouts/menu_button', menu_text: 'Funcionários', path: employee_pre_registrations_path, menu_con_name: 'employee_pre_registrations', menu_con_action: 'index'%>
             <%= render 'layouts/menu_button', menu_text: 'Horários', path: business_hours_path, menu_con_name: 'business_hours', menu_con_action: 'index'%>
           <% end %>
+    
         </nav>
       </section>
       
        <div class="flex bg-neutral-300 rounded-xl justify-between px-4 py-3 mx-4 mb-4">
+         
           <p><%=current_user.name%></p>
           <%= button_to 'Sair', destroy_admin_session_path, method: :delete%>
+       
         </div>
     </aside>
      

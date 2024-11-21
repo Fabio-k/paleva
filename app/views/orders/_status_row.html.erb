@@ -1,0 +1,10 @@
+<tr>
+    <td><%= title %></td>
+    <td>
+        <% if @order.order_statuses.find_by(status: field)%>
+            <p><%= @order.order_statuses.find_by(status: field).created_at.strftime('%H:%M')%> <%= I18n.localize(@order.order_statuses.find_by(status: field).created_at.to_date) %></p>
+        <% else %>
+            <p>-</p>
+        <% end %>
+    </td>
+</tr>
