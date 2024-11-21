@@ -116,6 +116,7 @@ end
 end
 
 order = Order.create!(cpf: CPF.generate, client_name: 'Jorge', phone_number: '24589332110', email: 'jorge@gmail.com', restaurant: restaurant)
+order.order_statuses.create!
 OrderPortion.create!(portion: item_portion, order: order, note: 'com 2 saches de ketchup')
 
 item_portion.update(price: 3240)

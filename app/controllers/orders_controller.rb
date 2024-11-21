@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     restaurant = current_user.restaurant
     @order.restaurant = restaurant
-
+    
     unless order_portions_params
       @menu = Menu.new
       @menus = restaurant.menus
@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         if @order.save
+          @order.order_statuses.create(status: 0)
           create_order_portions(order_portions_params)
           @order.calculate_total
           @order.save

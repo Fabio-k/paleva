@@ -1,6 +1,7 @@
 json.orders @orders do |order|
   json.code order.code
-  json.status Order.human_attribute_name("status.#{order.status}")
+
+  json.status OrderStatus.human_attribute_name("status.#{order.current_status}")
   json.total order.calculate_total
 
   json.client do

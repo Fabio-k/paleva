@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    attributes:
+      order_status/status:
+        wainting_confirmation: Aguardando confirmação da cozinha
+        in_progress: em preparação
+        canceled: cancelado
+        ready: pronto
+        delivered: entregue

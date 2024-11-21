@@ -15,6 +15,7 @@ describe 'user try to get orders' do
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
+    order.order_statuses.create!
 
     get api_orders_path, params: {restaurant_code: 'ABC123'}, headers: { 'Accept' => 'application/json' }
 
@@ -47,9 +48,10 @@ describe 'user try to get orders' do
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
-    other_order = Order.create!(status: :delivered,cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
+    order.order_statuses.create!
+    other_order = Order.create!(cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
     other_order.order_portions.create!(note: 'Colocar em dois pratos', quantity: 1, portion: other_portion)
-
+    other_order.order_statuses.create!(status: :delivered)
     get api_orders_path, params: {restaurant_code: 'ABC123', status: 'entregue'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :ok
@@ -73,9 +75,10 @@ describe 'user try to get orders' do
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
     order.order_portions.create!(note: 'Colocar em três pratos', quantity: 1, portion: other_portion)
-    other_order = Order.create!(status: :delivered,cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
+    order.order_statuses.create!
+    other_order = Order.create!(cpf: CPF.generate, client_name: 'anesia', phone_number: '78245932110', email: 'Anesia@gmail.com', restaurant: restaurant)
     other_order.order_portions.create!(note: 'Colocar em dois pratos', quantity: 1, portion: other_portion)
-
+    other_order.order_statuses.create!(status: :delivered)
     get api_orders_path, params: {restaurant_code: 'ABC123', status: 'invalid'}, headers: { 'Accept' => 'application/json' }
 
     expect(response).to have_http_status :ok
@@ -95,6 +98,7 @@ describe 'user try to get orders' do
     PortionPrice.create!(portion: portion, price: 3240)
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
+    order.order_statuses.create!
 
     get api_orders_path, params: {restaurant_code: '123ABC'}, headers: { 'Accept' => 'application/json' }
 
@@ -109,6 +113,7 @@ describe 'user try to get orders' do
     PortionPrice.create!(portion: portion, price: 3240)
     order = Order.create!(cpf: CPF.generate, client_name: 'client', phone_number: '24589332110', email: 'client@gmail.com', restaurant: restaurant)
     order.order_portions.create!(note: 'Não adicionar azeitona', quantity: 1, portion: portion)
+    order.order_statuses.create!
 
     other_admin = Admin.create!(cpf: CPF.generate, name: 'Sakura', last_name: 'Haruno', email: 'sakura@email.com', password: 'senha123senha')
     other_restaurant = Restaurant.create!(brand_name: 'Seven Eleven', corporate_name: 'Seven Eleven LTDA', registration_number: CNPJ.generate, street: 'Tobirama street', address_number: '3', city: 'Konoha', state: 'País do Fogo', phone_number: '1160894339', email: 'elevenseven@email.com', admin: other_admin)
@@ -117,7 +122,7 @@ describe 'user try to get orders' do
     PortionPrice.create!(portion: portion, price: 3240)
     other_order = Order.create!(cpf: CPF.generate, client_name: 'Naruto', phone_number: '24589332110', email: 'naruto@gmail.com', restaurant: other_restaurant)
     other_order.order_portions.create!(note: 'deixar bem quente', quantity: 1, portion: portion)
-
+    other_order.order_statuses.create!
     get api_orders_path, params: {restaurant_code: restaurant.code}, headers: { 'Accept' => 'application/json' }
     json_response = response.parsed_body
 

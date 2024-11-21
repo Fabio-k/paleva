@@ -1,6 +1,6 @@
 json.code @order.code
 json.client_name @order.client_name
-json.status Order.human_attribute_name("status.#{@order.status}")
+json.status OrderStatus.human_attribute_name("status.#{@order.current_status}")
 json.entry_data @order.created_at
 json.total @order.calculate_total
 

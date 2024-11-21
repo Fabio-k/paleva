@@ -2,47 +2,60 @@ class Api::OrdersController < ApiController
   before_action :set_restaurant
   def index
 
-    @orders = @restaurant.orders.visible_status_to_client
+    @orders = @restaurant.orders.select {|order| order.current_status != 'canceled'}
 
     status = params[:status]
     translated_status = translate_status(status)
-    @orders = @restaurant.orders.where(status: translated_status) if translated_status.present?
+
+    if translated_status.present?
+      @orders = @restaurant.orders.select {|order| order.current_status == translated_status} if translated_status.present?
+    end
     
   end
 
   def show
-      @order = @restaurant.orders.find_by(code: params[:order_code])
+      @order = get_order
       return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
   end
 
   def accept 
-    @order = @restaurant.orders.visible_status_to_client.find_by(code: params[:order_code])
+    @order = get_order
     return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
-
-    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.update(status: :in_progress)
+    result = @order.order_statuses.create(status: :in_progress)
+    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless result.persisted?
 
     render json: {message: 'Pedido criado com sucesso'}, statis: :ok 
   end
 
   def ready
-    @order = @restaurant.orders.find_by(code: params[:order_code])
+    @order = get_order
     return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
 
-    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.update(status: :ready)
+    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.order_statuses.create(status: :ready).persisted?
 
     render json: {message: 'Pedido criado com sucesso'}, statis: :ok 
   end
 
   def cancel
-    @order = @restaurant.orders.visible_status_to_client.find_by(code: params[:order_code])
+    @order = get_order
     return render json: {error: 'Pedido não encontrado'}, status: :not_found if @order.nil?
 
-    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.update(status: :canceled, reason_message: params[:reason_message])
+    @order.reason_message = params[:reason_message]
+    @order.save!
+    return render json: {message: 'Erro ao tentar atualizar pedido'}, status: :unprocessable_entity unless @order.order_statuses.create(status: :canceled).persisted?
 
     render json: {message: 'Pedido criado com sucesso'}, statis: :ok 
   end
 
   private
+
+  def valid_orders 
+    @restaurant.orders.select {|order| order.current_status != 'canceled'}
+  end
+
+  def get_order
+    valid_orders.select {|order| order.code ==  params[:order_code]}.first
+  end
 
   def set_restaurant
     @restaurant = Restaurant.find_by(code: params[:restaurant_code])
@@ -51,8 +64,8 @@ class Api::OrdersController < ApiController
   end
 
   def translate_status(status)
-    Order.statuses.each do |key, _|
-      return key if Order.human_attribute_name("status.#{key}") == status
+    OrderStatus.statuses.each do |key, _|
+      return key if OrderStatus.human_attribute_name("status.#{key}") == status
     end
 
     nil
