@@ -17,5 +17,5 @@
         </div>
     </div>
 </div>
-<%= render partial: 'menus/portion', collection: item.portions, as: :portion %>
+<%= render partial: 'menus/portion', collection: item.portions, as: :portion, locals: { menu: menu } %>
                          

@@ -1,10 +1,15 @@
-<h1 class="text-2xl">Editar cardápio</h1>
+<h1 class="text-2xl mb-4">Editar cardápio</h1>
 <%= form_with model: @menu do |f|%>
-    <div>
+    <div class="field">
         <p><%= f.label :name%></p>
         <%= f.text_field :name%>
     </div>
-    <%= f.submit 'Salvar alterações'%>
+    <div class="field">
+        <%= f.date_field :start_date%> 
+        <%= f.date_field :end_date%>
+    </div>
+    
+    <%= f.submit 'Salvar alterações', class: 'btn-submit w-48 mb-10'%>
     <section class="flex flex-col gap-10 mb-10">
         <h2 class="text-xl">Itens do cardápio</h2>
         <%= f.collection_check_boxes :items, @items, :id, :name, {checked: @menu.items.map(&:to_param)}  do |i|%>
@@ -12,7 +17,7 @@
                 <%= i.label(class: 'flex gap-5') do%>
                     <% if i.object.photo.present?%>
                         <div>
-                            <%= image_tag i.object.photo, width:200, height: 200%>
+                            <%= image_tag i.object.photo, width:60, height: 60%>
                         </div>
                     <% end %>
                     <section>

@@ -33,6 +33,7 @@ export default class extends Controller {
     const portionId = button.dataset.portionId;
     const portionTitle = button.dataset.portionTitle;
     const portionPrice = button.dataset.portionPrice;
+    const menuId = button.dataset.menuId;
 
     let orders = this.getItems();
 
@@ -41,7 +42,8 @@ export default class extends Controller {
     if (existingOrder) {
       existingOrder.quantity += 1;
     } else {
-      orders.push({
+      orders.unshift({
+        menuId: menuId,
         id: portionId,
         title: portionTitle,
         price: portionPrice,
@@ -104,11 +106,8 @@ export default class extends Controller {
       removeButton.appendChild(icon);
       titleDiv.appendChild(removeButton);
 
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = `order[order_portions][][portion_id]`;
-      input.value = order.id;
-      div.appendChild(input);
+      div.appendChild(this.createInput("hidden", "menu_id", order.menuId));
+      div.appendChild(this.createInput("hidden", "portion_id", order.id));
 
       div.appendChild(this.priceAndQuantityDiv(order));
 
@@ -170,12 +169,9 @@ export default class extends Controller {
 
     quantityDiv.appendChild(this.quantityButton(order, "+", 1));
 
-    const quantityInput = document.createElement("input");
-    quantityInput.type = "hidden";
-    quantityInput.name = `order[order_portions][][quantity]`;
-    quantityInput.value = order.quantity;
-
-    informationDiv.appendChild(quantityInput);
+    informationDiv.appendChild(
+      this.createInput("hidden", "quantity", order.quantity)
+    );
     informationDiv.appendChild(quantityDiv);
 
     return informationDiv;
@@ -204,5 +200,14 @@ export default class extends Controller {
     }
     localStorage.setItem("items", JSON.stringify(items));
     this.updateOrderList();
+  }
+
+  createInput(type, name, value) {
+    const input = document.createElement("input");
+    input.type = type;
+    input.name = `order[order_portions][][${name}]`;
+    input.value = value;
+
+    return input;
   }
 }

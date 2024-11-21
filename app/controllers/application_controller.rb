@@ -3,10 +3,17 @@ class ApplicationController < ActionController::Base
   #allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :check_admin
+  before_action :redirect_employees
   layout :layout_by_resource
   devise_group :user, contains: [:employee, :admin]
 
   protected
+
+  def redirect_employees
+    if controller_name == "registrations" && action_name == "new" && current_employee
+      redirect_to menus_path
+    end
+  end
 
   def check_admin
     if admin_signed_in? && !current_admin.restaurant.present? && !on_restaurant_creation_page?
@@ -31,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    new_admin_session_path 
+    new_admin_session_path
   end
 
   def after_sign_up_path_for(resource)

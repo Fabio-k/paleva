@@ -27,3 +27,13 @@ body {
 .menu_items.active {
   display: block;
 }
+
+.field_with_errors {
+  width: 100%;
+}
+
+.field_with_errors input {
+  border: 2px solid red;
+  width: 100%;
+  border-radius: 0.75rem;
+}

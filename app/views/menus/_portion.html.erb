@@ -1,7 +1,7 @@
 <div class="mx-20 flex w-1/2 justify-between py-2">
     <p><%= portion.description %></p>
     <p><%= portion.show_price%></p>
-    <button data-menu-target="portionButton" data-portion-id="<%= portion.id%>" data-portion-title="<%= portion.item.name%> <%= portion.description%>" data-portion-price="<%= portion.current_price%>">
+    <button data-menu-target="portionButton" data-menu-id="<%= menu.id%>" data-errors="<%= menu.errors%>" data-portion-id="<%= portion.id%>" data-portion-title="<%= portion.item.name%> <%= portion.description%>" data-portion-price="<%= portion.current_price%>">
         Adicionar Porção
     </button>
 </div>

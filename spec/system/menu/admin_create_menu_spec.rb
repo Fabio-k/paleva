@@ -19,6 +19,29 @@ describe 'admin create a menu' do
     expect(page).not_to have_content 'Whopper Barbecue Bacon'
   end
 
+  it 'with an expire date with success' do
+    admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
+    restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)
+    Dish.create!(name: 'Whopper Duplo', description: 'Pão com gergelim, dois suculentos hambúrgueres de pura carne bovina, duas fatias de cheddar, quatro fatias de picles, alface, tomate, cebola, maionese e ketchup.', calories: 850, restaurant: restaurant)
+    Dish.create!(name: 'Whopper Barbecue Bacon', description: 'Adicionamos no nosso WHOPPER® um delicioso molho barbecue e fatias super crocantes de bacon. Resultado: Perfeição!', calories: 440, restaurant: restaurant)
+
+    login_as admin, scope: :admin
+    visit '/'
+    fill_in 'menu_name_field', with: 'Sanduíches Especiais'
+    fill_in 'menu_start_date', with: 1.day.from_now
+    fill_in 'menu_end_date', with: 2.day.from_now
+    click_on '+'
+    check 'Whopper Duplo'
+    click_on 'Salvar alterações'
+
+    menu = Menu.all.first
+
+    expect(menu.start_date).to eq 1.day.from_now.to_date
+    expect(page).to have_content 'Sanduíches Especiais'
+    expect(page).to have_content 'Whopper Duplo'
+    expect(page).not_to have_content 'Whopper Barbecue Bacon'
+  end
+
   it 'with fail' do
     admin = Admin.create!(cpf: CPF.generate, name: 'Sergio', last_name: 'Oliveira', email: 'sergio@email.com', password: 'senha123senha')
     restaurant = Restaurant.create!(brand_name: 'Burger King', corporate_name: 'Burger King LTDA', registration_number: CNPJ.generate, street: 'Avenida cívica', address_number: '103', city: 'Mogi das Cruzes', state: 'São Paulo', phone_number: '1197894339', email: 'burgerking@email.com', admin: admin)

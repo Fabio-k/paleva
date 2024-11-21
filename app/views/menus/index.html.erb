@@ -2,12 +2,25 @@
 <div data-controller = "menu">
     <div class="mr-96">
         <% if current_admin%>
-            <section>
-                <h1 class="text-xl">Adicionar <%= @menu.model_name.human%></h1>
+            <section class='mb-10 p-10 border-2 border-amber-400 rounded-xl'>
+                <h1 class="text-xl mb-5">Adicionar <%= @menu.model_name.human%></h1>
                 <%= form_with model: @menu do |f|%>
                     <div class="flex gap-2 mb-5">
-                        <%= f.text_field :name, placeholder: "Nome do #{@menu.model_name.human}", id: 'menu_name_field', class: 'input-secondary'%>
-                        <%= f.submit "+", class: 'text-white text-2xl font-medium bg-amber-500 px-4 rounded cursor-pointer'%>
+                        <%= render layout: 'menus/input', locals: {local_model: @menu, field: :name} do%>
+                            <%= f.text_field :name, placeholder: "Nome do #{@menu.model_name.human}", id: 'menu_name_field', class: 'input-secondary w-full'%>
+                        <% end %>
+                        
+                        <%= f.submit "+", class: 'text-white text-2xl font-medium bg-amber-500 px-4 rounded cursor-pointer mb-8'%>
+                    </div>
+                    <p class="mb-5">Data de início e encerramento (opcional)</p>
+                    <div class="flex items-center gap-5">
+                        <%= render layout: 'menus/input', locals: {local_model: @menu, field: :start_date} do %>                    
+                            <%= f.date_field :start_date, class: 'input-secondary w-full' %>
+                        <% end %>
+                        <p class="mb-6">-</p>
+                        <%= render layout: 'menus/input', locals: {local_model: @menu, field: :end_date} do%> 
+                            <%= f.date_field :end_date, class: 'input-secondary w-full'%>
+                        <% end %>
                     </div>
                     
                 <% end %>
@@ -23,6 +36,12 @@
                             <% if current_admin%>
                                 <%= link_to "Editar", edit_menu_path(menu.id)%>
                             <% end %>
+                            <% if menu.start_date.present? && menu.end_date.present?%>
+                                <%= I18n.localize(menu.start_date)%> - <%= I18n.localize(menu.end_date)%>
+                            <% end %>
+                            <% if menu.unavailable?%>
+                                <p>Indisponível para pedidos</p>
+                            <% end%>
                         </div>
                         
                         <% if menu.items.valid.present?%>
@@ -33,7 +52,7 @@
                     <div class="min-h-[2px] bg-gray-200 my-5"></div>
 
                     <section class="menu_items" data-menu-target="menuItem">
-                        <%= render partial: 'menus/item', collection: menu.items.valid, as: :item%>
+                        <%= render partial: 'menus/item', collection: menu.items.valid, as: :item, locals: { menu: menu }%>
                     </section>
                 </div>
             <% end %>

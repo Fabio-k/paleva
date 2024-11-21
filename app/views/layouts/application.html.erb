@@ -58,11 +58,14 @@
     </aside>
      
     <main class="container ml-72 mx-auto mt-10 px-6">
-      <div>
+      <div data-controller="flash">
         <p class="notice"><%= notice %></p>
-        <% if alert.present?%>
-          <p class="alert"><%= alert %> <%= link_to 'fechar', request.path%></p>
-        <% end %>
+      
+        <div class="flex justify-between hidden py-2 px-4 bg-red-200 mr-96 rounded mb-10" data-flash-target="flashDiv">
+          <p class="alert text-red-800 font-bold"  data-flash-target="flashText" data-action="change->flash#updateFlash"><%= alert %></p>
+          <button data-action="click->flash#closeFlash">fechar</button>
+        </div>
+       
       </div>
       <%= yield %>
     </main>

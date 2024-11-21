@@ -4,8 +4,8 @@ class MenusController < ApplicationController
 
   def index 
     @menu = Menu.new
-    @menus = @restaurant.menus
-    
+    @menus = @restaurant.menus.valid_menus
+    @menus = @restaurant.menus if current_admin
     @order = Order.new
   end
 
@@ -34,8 +34,10 @@ class MenusController < ApplicationController
     item_ids = params[:menu][:items].reject!(&:empty?)
     valid_items = @restaurant.items.valid.where(id: item_ids)
     name = params[:menu][:name]
+    start_date = params[:menu][:start_date]
+    end_date = params[:menu][:end_date]
 
-    unless @menu.update(name: name, items: valid_items)
+    unless @menu.update(name: name, items: valid_items, start_date: start_date, end_date: end_date)
       @items = @restaurant.items.valid
       flash.now[:alert] =  'Erro ao tentar atualizar menu'
       return render :edit  
@@ -52,6 +54,6 @@ class MenusController < ApplicationController
   end
 
   def menu_params
-    params.require(:menu).permit(:name)
+    params.require(:menu).permit(:name, :start_date, :end_date)
   end
 end
