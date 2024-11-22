@@ -31,4 +31,12 @@
   .menu-nav.active {
     @apply bg-neutral-300;
   }
+
+  .itemCheckbox label {
+    @apply btn-submit;
+  }
+
+  .itemCheckbox input:checked label {
+    @apply bg-amber-700;
+  }
 }

@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CaracteristicController from "./caracteristic_controller"
+application.register("caracteristic", CaracteristicController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
 

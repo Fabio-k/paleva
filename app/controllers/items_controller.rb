@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   def index
     @restaurant = current_admin.restaurant
     @items = @restaurant.items.where(is_removed: false)
+    @caracteristics = @restaurant.caracteristics
   end
 
   def show
@@ -77,7 +78,8 @@ class ItemsController < ApplicationController
   def search
     restaurant = current_admin.restaurant
     @query = params[:query]
-    @items = restaurant.items.where 'name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{@query}%"
+    @items = restaurant.items.where(is_removed: false).where 'name LIKE ? OR description LIKE ?', "%#{params[:query]}%", "%#{@query}%"
+    
   end
 
   private

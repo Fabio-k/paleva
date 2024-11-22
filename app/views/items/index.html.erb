@@ -1,10 +1,19 @@
-<div class="mb-10">
+<div class="mb-10" data-controller="caracteristic">
     <div>
-        <h2 class="text-2xl mb-5">Itens</h2>
-        <%= link_to "Adicionar Item", new_item_path, class: 'rounded-xl text-white font-medium bg-amber-500 px-4 py-2'%>
+        
+        <h2 class="text-2xl mb-5">Itens <span class="text-lg"><%= link_to "Adicionar Item", new_item_path, class: ''%></span></h2> 
+ 
+        <div class="mb-10">
+            <% @caracteristics.each do |caracteristic|%>
+                <label for="<%= caracteristic.name%>" id="<%= caracteristic.name%>label" class="bg-amber-500 py-2 px-4 rounded text-white font-medium"><%= caracteristic.name%></label>
+                <input type="checkbox" name="caracteristic" id="<%= caracteristic.name%>" data-action="change->caracteristic#updateItems" value="<%= caracteristic.name%>" class="hidden">
+            <% end %>
+        </div>
+        
+       
     </div>
     <% @items.each do |item|%>
-        <div class="mb-10">
+        <div class="item mb-10" data-caracteristics="<%= item.caracteristics.map(&:name).to_json%>">
             <div class="flex gap-5 p-5 items-center">
                 <%= link_to item_path(item.id) do%>
                     <%= render 'item_details', item: item%>
